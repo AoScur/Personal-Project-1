@@ -1,0 +1,87 @@
+#include "Scene.h"
+#include "../Framework/ResourceMgr.h"
+#include "../Framework/Framework.h"
+#include "../Ui/UiMgr.h"
+#include "../GameObject/ItemGenerator.h"
+
+Scene::Scene(Scenes type)
+	:type(type)
+{
+}
+
+Scene::~Scene()
+{
+	Release();
+}
+
+void Scene::Release()
+{
+	for ( const auto& obj : objList )
+	{
+		obj->Release();
+		delete obj;
+	}
+	objList.clear();
+}
+
+void Scene::Update(float dt)
+{
+	for ( const auto& obj : objList )
+	{
+		if ( obj->GetActive() )
+		{
+			obj->Update(dt);
+		}
+	}
+}
+
+void Scene::Draw(RenderWindow& window)
+{
+	window.setView(worldView);
+
+	for ( const auto& obj : objList )
+	{
+		if ( obj == objList.front() && obj->GetActive() )
+		{
+			obj->Draw(window);
+			break;
+		}
+	}
+	ITEM_GEN->Draw(window);
+	for ( const auto& obj : objList )
+	{
+		if ( obj != objList.front() && obj->GetActive() )
+		{
+			obj->Draw(window);
+		}
+	}
+}
+
+Texture* Scene::GetTexture(string id)
+{
+	return RESOURCE_MGR->GetTexture(id);
+}
+
+Vector2f Scene::ScreenToWorldPos(Vector2i screenPos)
+{
+	RenderWindow& window = FRAMEWORK->GetWindow();
+	return window.mapPixelToCoords(screenPos, worldView);
+}
+
+Vector2f Scene::ScreenToUiPos(Vector2i screenPos)
+{
+	RenderWindow& window = FRAMEWORK->GetWindow();
+	return window.mapPixelToCoords(screenPos, UiView);
+}
+
+Object* Scene::FindGameObj(string name)
+{
+	for ( auto obj : objList )
+	{
+		if ( obj->GetName() == name )
+		{
+			return obj;
+		}
+	}
+	return nullptr;
+}

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DataTable\DataTable.cpp" />
+    <ClCompile Include="DataTable\DataTableMGR.cpp" />
+    <ClCompile Include="DataTable\StringTable.cpp" />
+    <ClCompile Include="Framework\Framework.cpp" />
+    <ClCompile Include="Framework\InputMgr.cpp" />
+    <ClCompile Include="Framework\ResourceMgr.cpp" />
+    <ClCompile Include="Framework\Utils.cpp" />
+    <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="GameObject\ItemGenerator.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameObject\Object.cpp" />
+    <ClCompile Include="GameObject\Pickup.cpp" />
+    <ClCompile Include="DataTable\PlayerStatTable.cpp" />
+    <ClCompile Include="Scenes\SceneMenu.cpp" />
+    <ClCompile Include="Scenes\SceneGame.cpp" />
+    <ClCompile Include="Scenes\SceneScoreBoard.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\SceneMgr.cpp" />
+    <ClCompile Include="GameObject\SpriteObj.cpp" />
+    <ClCompile Include="GameObject\TextObj.cpp" />
+    <ClCompile Include="Framework\SoundMgr.cpp" />
+    <ClCompile Include="Scenes\SceneTitle.cpp" />
+    <ClCompile Include="UI\UiMenuMgr.cpp" />
+    <ClCompile Include="UI\UiTitleMgr.cpp" />
+    <ClCompile Include="GameObject\Slash.cpp" />
+    <ClCompile Include="UI\UiGameMgr.cpp" />
+    <ClCompile Include="UI\UiMgr.cpp" />
+    <ClCompile Include="UI\UiScoreBoardMgr.cpp" />
+    <ClCompile Include="GameObject\Weapon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rd\rapidcsv.h" />
+    <ClInclude Include="3rd\Singleton.h" />
+    <ClInclude Include="3rd\OBB.h" />
+    <ClInclude Include="Framework\ObjectPool.h" />
+    <ClInclude Include="DataTable\DataTable.h" />
+    <ClInclude Include="DataTable\DataTableMGR.h" />
+    <ClInclude Include="DataTable\StringTable.h" />
+    <ClInclude Include="Framework\Framework.h" />
+    <ClInclude Include="Framework\InputMgr.h" />
+    <ClInclude Include="Framework\ResourceMgr.h" />
+    <ClInclude Include="Framework\Utils.h" />
+    <ClInclude Include="GameObject\Object.h" />
+    <ClInclude Include="GameObject\Player.h" />
+    <ClInclude Include="GameObject\Pickup.h" />
+    <ClInclude Include="GameObject\ItemGenerator.h" />
+    <ClInclude Include="DataTable\PlayerStatTable.h" />
+    <ClInclude Include="Scenes\SceneMenu.h" />
+    <ClInclude Include="Scenes\SceneGame.h" />
+    <ClInclude Include="Scenes\SceneScoreBoard.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\SceneMgr.h" />
+    <ClInclude Include="GameObject\SpriteObj.h" />
+    <ClInclude Include="GameObject\TextObj.h" />
+    <ClInclude Include="Framework\SoundMgr.h" />
+    <ClInclude Include="Scenes\SceneTitle.h" />
+    <ClInclude Include="UI\UiMenuMgr.h" />
+    <ClInclude Include="UI\UiTitleMgr.h" />
+    <ClInclude Include="UI\UiGameMgr.h" />
+    <ClInclude Include="UI\UiMgr.h" />
+    <ClInclude Include="Frameworks.h" />
+    <ClInclude Include="GameObject\Slash.h" />
+    <ClInclude Include="UI\UiScoreBoardMgr.h" />
+    <ClInclude Include="GameObject\Weapon.h" />
+  </ItemGroup>
+</Project>

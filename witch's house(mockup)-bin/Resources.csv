@@ -1,0 +1,12 @@
+id,"type(0: Texture, 1: Font, 2: Sound 3:Animaition"
+graphics/MarioIdle.png,0
+graphics/MarioJump.png,0
+graphics/MarioMove.png,0
+graphics/KoopaFrontIdle.png,0
+graphics/koopaFrontAttack.png,0
+animations/Mairo/MarioIdleRight.csv,3
+animations/Mairo/MarioIdleLeft.csv,3
+animations/Mairo/MarioJumpRight.csv,3
+animations/Mairo/MarioJumpLeft.csv,3
+animations/Mairo/Move.csv,3
+animations/Mairo/MoveLeft.csv,3
