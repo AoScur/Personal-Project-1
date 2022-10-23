@@ -2,7 +2,6 @@
 #include "Scene.h"
 #include <list>
 #include "../Framework/ObjectPool.h"
-#include "../GameObject/Weapon.h"
 
 class Player;
 class VertexArrayObj;
@@ -17,8 +16,6 @@ protected:
 	Player* player;
 	
 	VertexArrayObj* background;
-	list<Zombie*> zombies;
-	list<Weapon*> weapons;
 	int stage;
 
 public:
@@ -34,6 +31,4 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
-
-	list<Zombie*>* GetZombieList() { return &zombies; }
 };

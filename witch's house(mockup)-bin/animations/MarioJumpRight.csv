@@ -1,5 +1,5 @@
 ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
-JumpMarioJumpRight,0,10,,,,,,
+MarioJumpRight,0,10,,,,,,
 ,,,,,,,,
 TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
 graphics/MarioJump.png,0,0,22,31,11,0,1,0

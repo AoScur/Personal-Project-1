@@ -117,3 +117,8 @@ bool Utils::OBB(const RectangleShape& obb1, const RectangleShape& obb2)
 	Vector2f MTV;
 	return testCollision(obb1, obb2, MTV);
 }
+
+bool Utils::EqualFloat(const float a, float b)
+{
+	return fabs(a - b) < numeric_limits<float>::epsilon();
+}

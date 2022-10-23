@@ -4,9 +4,9 @@ graphics/MarioJump.png,0
 graphics/MarioMove.png,0
 graphics/KoopaFrontIdle.png,0
 graphics/koopaFrontAttack.png,0
-animations/Mairo/MarioIdleRight.csv,3
-animations/Mairo/MarioIdleLeft.csv,3
-animations/Mairo/MarioJumpRight.csv,3
-animations/Mairo/MarioJumpLeft.csv,3
-animations/Mairo/Move.csv,3
-animations/Mairo/MoveLeft.csv,3
+animations/MarioIdleLeft.csv,3
+animations/MarioIdleRight.csv,3
+animations/MarioJumpLeft.csv,3
+animations/MarioJumpRight.csv,3
+animations/MarioMoveLeft.csv,3
+animations/MarioMoveRight.csv,3

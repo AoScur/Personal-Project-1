@@ -149,16 +149,15 @@
     <ClCompile Include="DataTable\DataTable.cpp" />
     <ClCompile Include="DataTable\DataTableMGR.cpp" />
     <ClCompile Include="DataTable\StringTable.cpp" />
+    <ClCompile Include="Framework\AnimationClip.cpp" />
+    <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="Framework\Framework.cpp" />
     <ClCompile Include="Framework\InputMgr.cpp" />
     <ClCompile Include="Framework\ResourceMgr.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
-    <ClCompile Include="GameObject\ItemGenerator.cpp" />
-    <ClCompile Include="GameObject\Weapon.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject\Object.cpp" />
-    <ClCompile Include="GameObject\Pickup.cpp" />
     <ClCompile Include="DataTable\PlayerStatTable.cpp" />
     <ClCompile Include="Scenes\SceneMenu.cpp" />
     <ClCompile Include="Scenes\SceneGame.cpp" />
@@ -183,6 +182,8 @@
     <ClInclude Include="3rd\rapidcsv.h" />
     <ClInclude Include="3rd\Singleton.h" />
     <ClInclude Include="3rd\OBB.h" />
+    <ClInclude Include="Framework\AnimationClip.h" />
+    <ClInclude Include="Framework\Animator.h" />
     <ClInclude Include="Framework\ObjectPool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -196,10 +197,7 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="GameObject\Object.h" />
     <ClInclude Include="GameObject\Player.h" />
-    <ClInclude Include="GameObject\Pickup.h" />
-    <ClInclude Include="GameObject\ItemGenerator.h" />
     <ClInclude Include="DataTable\PlayerStatTable.h" />
-    <ClInclude Include="GameObject\Weapon.h" />
     <ClInclude Include="Scenes\SceneMenu.h" />
     <ClInclude Include="Scenes\SceneGame.h" />
     <ClInclude Include="Scenes\SceneScoreBoard.h" />

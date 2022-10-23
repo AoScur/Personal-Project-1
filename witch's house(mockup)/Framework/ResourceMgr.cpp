@@ -58,6 +58,8 @@ bool ResourceMgr::Load(ResourceTypes type, string id)
         return LoadFont(id);
     case ResourceTypes::SoundBuffer:
         return LoadSoundBuffer(id);
+    case ResourceTypes::AnimationClip:
+        return LoadAnimationClip(id);
     }
 
     // Error Msg
@@ -112,6 +114,27 @@ bool ResourceMgr::LoadSoundBuffer(string id)
     return true;
 }
 
+bool ResourceMgr::LoadAnimationClip(string id)
+{
+    if (animationClipMap.find(id) != animationClipMap.end())
+    {
+        return false;
+    }
+    rapidcsv::Document csv(id);
+    auto rowClip = csv.GetRow<string>(0);
+    AnimationClip* clip = new AnimationClip();
+    clip->id = rowClip[0];
+    clip->loopType = (LoopTypes)stoi(rowClip[1]);
+    clip->fps = stoi(rowClip[2]);
+
+    for (int i = 3; i < csv.GetRowCount(); i++)
+    {
+        clip->frames.push_back(csv.GetRow<string>(i));
+    }
+    animationClipMap.insert({ clip->id,clip });
+    return true;
+}
+
 Texture* ResourceMgr::GetTexture(string id)
 {
     auto it = texMap.find(id);
@@ -133,5 +156,15 @@ SoundBuffer* ResourceMgr::GetSoundBuffer(string id)
     auto it = soundMap.find(id);
     if (it == soundMap.end())
         return nullptr;
+    return it->second;
+}
+
+AnimationClip* ResourceMgr::GetAnimationClip(string id)
+{
+    auto it = animationClipMap.find(id);
+    if (it == animationClipMap.end())
+    {
+        return nullptr;
+    }
     return it->second;
 }

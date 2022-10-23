@@ -40,8 +40,8 @@ bool Framework::Init(int width, int height)
     window.create(VideoMode(windowSize.x, windowSize.y), "Game");
 
     RESOURCE_MGR->LoadAll();
-    SOUND_MGR->Init();
-    DATATABLE_MGR->Init();
+    //SOUND_MGR->Init();
+    //DATATABLE_MGR->Init();
     SCENE_MGR->Init();
     InputMgr::Init();
 

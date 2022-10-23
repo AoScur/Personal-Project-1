@@ -9,10 +9,8 @@
     <ClCompile Include="Framework\ResourceMgr.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
-    <ClCompile Include="GameObject\ItemGenerator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject\Object.cpp" />
-    <ClCompile Include="GameObject\Pickup.cpp" />
     <ClCompile Include="DataTable\PlayerStatTable.cpp" />
     <ClCompile Include="Scenes\SceneMenu.cpp" />
     <ClCompile Include="Scenes\SceneGame.cpp" />
@@ -29,7 +27,8 @@
     <ClCompile Include="UI\UiGameMgr.cpp" />
     <ClCompile Include="UI\UiMgr.cpp" />
     <ClCompile Include="UI\UiScoreBoardMgr.cpp" />
-    <ClCompile Include="GameObject\Weapon.cpp" />
+    <ClCompile Include="Framework\AnimationClip.cpp" />
+    <ClCompile Include="Framework\Animator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -45,8 +44,6 @@
     <ClInclude Include="Framework\Utils.h" />
     <ClInclude Include="GameObject\Object.h" />
     <ClInclude Include="GameObject\Player.h" />
-    <ClInclude Include="GameObject\Pickup.h" />
-    <ClInclude Include="GameObject\ItemGenerator.h" />
     <ClInclude Include="DataTable\PlayerStatTable.h" />
     <ClInclude Include="Scenes\SceneMenu.h" />
     <ClInclude Include="Scenes\SceneGame.h" />
@@ -64,6 +61,7 @@
     <ClInclude Include="Frameworks.h" />
     <ClInclude Include="GameObject\Slash.h" />
     <ClInclude Include="UI\UiScoreBoardMgr.h" />
-    <ClInclude Include="GameObject\Weapon.h" />
+    <ClInclude Include="Framework\AnimationClip.h" />
+    <ClInclude Include="Framework\Animator.h" />
   </ItemGroup>
 </Project>

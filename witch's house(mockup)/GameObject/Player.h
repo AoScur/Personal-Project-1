@@ -3,75 +3,75 @@
 #include "../Framework/ObjectPool.h"
 #include "../DataTable/PlayerStatTable.h"
 
+#include "../Framework/Animator.h"
+
 class Pickup;
 class Scene;
 class UiMgr;
 
 
-enum class FireModes
+enum class WeaponModes
 {
-	PISTOL,
-	SUBMACHINE,
-	SWORD,
-	COUNT
+	Hammer,
+	Arrow,
+	Magic,
 };
 
 class Player : public SpriteObj
 {
+public:
+	enum class States
+	{
+		None = -1,
+		Idle,
+		Move,
+		Jump,
+	};
 protected:
-	Vector2f look;
-	Vector2f direction; //이동방향 , 단위 벡터
+	//Sprite sprite;
+	Animator animator;
+	States currState;
+
+	Vector2f direction;
+	Vector2f lastDirection;
 	float speed;
-	float accelation;
-	float deaccelation;
-	Vector2f velocity;
 
 	Scene* scene;
 	UiMgr* UiMgr;
 
-	FireModes fireMode;
-
-	// stats
-	PlayerStatTable pst;
-	int level;
-	float reqUireExp;
-	float maxHealth;
-	float health;
-	float damage;
-	float exp;
+	WeaponModes weaponMode;
 
 public:
-	Player();
+	Player() :currState(States::None), speed(200.f), 
+			  direction(1.f, 0.f), lastDirection(1.f, 0.f), 
+		      weaponMode(WeaponModes::Hammer) {}
 	virtual ~Player();
 		
 	virtual void Init() override;
 	
 	virtual void Reset() override;
 
+	void UpdateInput(Event ev);
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	void ResetVelocity();
-	void SetShootType();
+	void UpdateIdle(float dt);
+	void UpdateMove(float dt);
+	void UpdateJump(float dt);
+
+	void SetState(States newState);
+	void SetWeaponModes();
+	//void SetHealth(float delta) { health += delta; }
+	void SetStatData(int idx);
 	
 	void OnPickupItem(Pickup* item);
 	//void OnHitZombie(Zombie* zombie);
 
 	Vector2f GetPosition();
-	Vector2f GetLook();
 
-	void SetHealth(float delta) { health += delta; }
-	float GetDamage() const { return damage; }
-	void SetExp(float delta) { exp += delta; }
-	void SetStatData(int idx)
-	{
-		reqUireExp = pst.LoadReqExp(idx);
-		maxHealth = pst.LoadHealth(idx);
-		health = pst.LoadHealth(idx);
-		damage = pst.LoadDamage(idx);
-	}
-	float GetReqUireExp() {	return reqUireExp; }
-	float GetExp() { return exp; }
-	float GetMaxHealth() { return maxHealth; }
-	float GetHealth() { return health; }
+	//float GetDamage() const { return damage; }
+	//float GetMaxHealth() { return maxHealth; }
+	//float GetHealth() { return health; }
+
+	void OnCompleteJump();
 };

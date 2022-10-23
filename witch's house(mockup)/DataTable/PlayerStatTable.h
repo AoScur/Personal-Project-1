@@ -25,7 +25,6 @@ public:
 	PlayerStatTable();
 	~PlayerStatTable();
 
-	int LoadReqExp(int idx) { return playerData[idx - 1]->reqexp; }
 	int LoadHealth(int idx) { return playerData[idx - 1]->health; }
 	int LoadDamage(int idx) { return playerData[idx - 1]->damage; }
 
