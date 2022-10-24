@@ -6,6 +6,7 @@
 #include "../Framework/InputMgr.h"
 #include "../DataTable/DataTableMGR.h"
 #include "../DataTable/StringTable.h"
+#include "../GameObject/SpriteObj.h"
 #include <string>
 
 UiGameMgr::UiGameMgr(Scene* scene)
@@ -21,6 +22,7 @@ void UiGameMgr::Init()
 {
 	Vector2i WindowSize = FRAMEWORK->GetWindowSize();
 	
+
 	auto stringTable = DATATABLE_MGR->Get<StringTable>(DataTable::Types::String);
 	stringTable->SetLanguage(StringTable::getCurrentLang());
 	

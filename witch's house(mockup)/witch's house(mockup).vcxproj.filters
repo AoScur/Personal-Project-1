@@ -29,6 +29,7 @@
     <ClCompile Include="UI\UiScoreBoardMgr.cpp" />
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
+    <ClCompile Include="GameObject\Boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -63,5 +64,6 @@
     <ClInclude Include="UI\UiScoreBoardMgr.h" />
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
+    <ClInclude Include="GameObject\Boss.h" />
   </ItemGroup>
 </Project>

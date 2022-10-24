@@ -12,8 +12,10 @@ Player::~Player()
 
 void Player::Init()
 {
-	sprite.setPosition(1280.f / 2, 720.f / 2 + 60.f);
+	Vector2i size = FRAMEWORK->GetWindowSize();
 	animator.SetTarget(&sprite);
+	position = {0.f, 0.f };
+	sprite.setScale(2, 2);
 
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioIdleLeft"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioIdleRight"));
@@ -38,8 +40,6 @@ void Player::Init()
 	SetState(States::Idle);
 
 	SpriteObj::Init();
-	scene = SCENE_MGR->GetCurScene();
-	UiMgr = scene->GetUiMgr();
 }
 
 void Player::Reset()
@@ -48,29 +48,21 @@ void Player::Reset()
 	weaponMode = WeaponModes::Hammer;
 }
 
-void Player::UpdateInput(Event ev)
-{
-	switch (ev.type)
-	{
-	case Event::KeyPressed:
-		switch (ev.key.code)
-		{
-		case Keyboard::Key::Space:
-			SetState(States::Jump);
-			break;
-		}
-		break;
-	}
-}
-
 void Player::Update(float dt)
 {
 	SpriteObj::Update(dt);
 
 	RenderWindow& window = FRAMEWORK->GetWindow();
+	if (InputMgr::GetKeyDown(Keyboard::Key::B))
+	{
 
+	}
 	direction.x = 0.f;
 	direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
+	if (InputMgr::GetKeyDown(Keyboard::Key::Space))
+	{
+		currState = States::Jump;
+	}
 	switch (currState)
 	{
 	case Player::States::Idle:
@@ -89,21 +81,7 @@ void Player::Update(float dt)
 		lastDirection = direction;
 	}
 
-	Translate(direction*speed * dt);
-
-
-	// test
-	//if (InputMgr::GetKeyDown(Keyboard::P))
-	//{
-	//	cout << "level: " << level << endl <<
-	//		"reqUireExp: " << reqUireExp << endl <<
-	//		"health: " << health << endl <<
-	//		"damage: " << damage << endl <<
-	//		"exp: " << exp << endl;
-	//}
-
-	// die
-
+ 	Translate(direction*speed * dt);
 }
 
 void Player::Draw(RenderWindow& window)
@@ -135,6 +113,7 @@ void Player::UpdateMove(float dt)
 
 void Player::UpdateJump(float dt)
 {
+
 }
 
 void Player::SetState(States newState)
@@ -158,6 +137,9 @@ void Player::SetState(States newState)
 
 void Player::SetWeaponModes()
 {
+	weaponMode = (WeaponModes)((int)weaponMode + 1);
+	if (weaponMode == WeaponModes::COUNT)
+		weaponMode = WeaponModes::Hammer;
 }
 
 void Player::SetStatData(int idx)

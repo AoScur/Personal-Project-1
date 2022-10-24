@@ -4,8 +4,8 @@
 #include "../Framework/ObjectPool.h"
 
 class Player;
+class Boss;
 class VertexArrayObj;
-class Zombie;
 class Bullet;
 class SpriteObj;
 class Pickup;
@@ -13,9 +13,11 @@ class Pickup;
 class SceneGame : public Scene
 {
 protected:
+	SpriteObj* background;
+
 	Player* player;
+	Boss* boss;
 	
-	VertexArrayObj* background;
 	int stage;
 
 public:

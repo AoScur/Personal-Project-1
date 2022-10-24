@@ -14,10 +14,8 @@ void InputMgr::Init()
 	// Horizontal
 	AxisInfo infoH;
 	infoH.axis = Axis::Horizontal;
-	infoH.positives.push_back(Keyboard::Key::D);
 	infoH.positives.push_back(Keyboard::Key::Right);
 
-	infoH.negatives.push_back(Keyboard::Key::A);
 	infoH.negatives.push_back(Keyboard::Key::Left);
 
 	infoH.sensi = 5.f;
@@ -29,10 +27,8 @@ void InputMgr::Init()
 	AxisInfo infoV;
 	infoV.axis = Axis::Vertical;
 
-	infoV.positives.push_back(Keyboard::Key::S);
 	infoV.positives.push_back(Keyboard::Key::Down);
 
-	infoV.negatives.push_back(Keyboard::Key::W);
 	infoV.negatives.push_back(Keyboard::Key::Up);
 
 	infoV.sensi = 5.f;

@@ -9,6 +9,7 @@ class Scene;
 class UiGameMgr :public UiMgr
 {
 protected:
+	
 
 public:
 	UiGameMgr(Scene* scene);

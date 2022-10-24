@@ -13,8 +13,9 @@ class UiMgr;
 enum class WeaponModes
 {
 	Hammer,
-	Arrow,
+	//Arrow,
 	Magic,
+	COUNT,
 };
 
 class Player : public SpriteObj
@@ -35,10 +36,7 @@ protected:
 	Vector2f direction;
 	Vector2f lastDirection;
 	float speed;
-
-	Scene* scene;
-	UiMgr* UiMgr;
-
+	
 	WeaponModes weaponMode;
 
 public:
@@ -51,7 +49,6 @@ public:
 	
 	virtual void Reset() override;
 
-	void UpdateInput(Event ev);
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
@@ -63,9 +60,6 @@ public:
 	void SetWeaponModes();
 	//void SetHealth(float delta) { health += delta; }
 	void SetStatData(int idx);
-	
-	void OnPickupItem(Pickup* item);
-	//void OnHitZombie(Zombie* zombie);
 
 	Vector2f GetPosition();
 

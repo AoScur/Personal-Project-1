@@ -1,0 +1,19 @@
+ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
+KoopaFrontIdle,1,10,,,,,,
+,,,,,,,,
+TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
+graphics/KoopaFrontIdle.png,0,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,137,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,274,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,411,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,548,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,685,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,822,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,959,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1096,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1233,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1370,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1507,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1644,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1781,0,137,119,68.5,0,0,0
+graphics/KoopaFrontIdle.png,1918,0,137,119,68.5,0,0,0
