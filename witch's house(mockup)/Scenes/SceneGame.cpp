@@ -32,7 +32,7 @@ void SceneGame::Init()
 	player->Init();
 
 	boss = new Boss();
-	player->SetName("Boss");
+	boss->SetName("Boss");
 	boss->Init();
 	
 
@@ -73,8 +73,6 @@ void SceneGame::Update(float dt)
 	background->Update(dt);
 	boss->Update(dt);
 	player->Update(dt);
-	cout <<"p :" << player->GetPosition().x << endl;
-	cout << "b :" << boss->GetPosition().x << endl;
 	worldView.setCenter(player->GetPos().x, player->GetPos().y - 200);
 }
 

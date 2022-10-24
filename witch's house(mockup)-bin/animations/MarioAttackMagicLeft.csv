@@ -1,0 +1,14 @@
+ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
+MarioAttackMagicLeft,0,10,,,,,,
+,,,,,,,,
+TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
+graphics/128102.png,468,2500,18,28,9,28,0,0
+graphics/128102.png,509,2500,24,28,12,28,0,0
+graphics/128102.png,549,2500,25,28,12.5,28,0,0
+graphics/128102.png,589,2500,24,28,12,28,0,0
+graphics/128102.png,529,2501,23,27,11.5,27,0,0
+graphics/128102.png,656,2501,35,27,17.5,27,0,0
+graphics/128102.png,698,2501,31,27,15.5,27,0,0
+graphics/128102.png,742,2501,27,27,13.5,27,0,0
+graphics/128102.png,782,2500,26,28,13,28,0,0
+graphics/128102.png,826,2499,21,29,10.5,29,0,0

@@ -2,6 +2,6 @@ ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
 MarioIdleLeft,1,10,,,,,,
 ,,,,,,,,
 TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
-graphics/MarioIdle.png,0,0,16,29,8,0,0,0
-graphics/MarioIdle.png,16,0,16,29,8,0,0,0
-graphics/MarioIdle.png,32,0,16,29,8,0,0,0
+graphics/MarioIdle.png,0,0,16,29,8,29,0,0
+graphics/MarioIdle.png,16,0,16,29,8,29,0,0
+graphics/MarioIdle.png,32,0,16,29,8,29,0,0

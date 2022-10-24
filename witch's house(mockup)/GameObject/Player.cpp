@@ -16,6 +16,7 @@ void Player::Init()
 	animator.SetTarget(&sprite);
 	position = {0.f, 0.f };
 	sprite.setScale(2, 2);
+	isJump = false;
 
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioIdleLeft"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioIdleRight"));
@@ -23,17 +24,49 @@ void Player::Init()
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioMoveRight"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioJumpLeft"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioJumpRight"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackHammerLeft"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackHammerRight"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackMagicLeft"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackMagicRight"));
+	//{
+	//	AnimationEvent ev;
+	//	ev.clipId = "MarioJumpLeft";
+	//	ev.frame = 6;
+	//	ev.onEvnet = bind(&Player::OnCompleteJump, this);
+	//	animator.AddEnvet(ev);
+	//}
+	//{
+	//	AnimationEvent ev;
+	//	ev.clipId = "MarioJumpRight";
+	//	ev.frame = 6;
+	//	ev.onEvnet = bind(&Player::OnCompleteJump, this);
+	//	animator.AddEnvet(ev);
+	//}
 	{
-		AnimationEvent ev;
-		ev.clipId = "MarioJumpLeft";
-		ev.frame = 7;
+ 		AnimationEvent ev;
+		ev.clipId = "MarioAttackHammerLeft";
+		ev.frame = 20;
 		ev.onEvnet = bind(&Player::OnCompleteJump, this);
 		animator.AddEnvet(ev);
 	}
 	{
 		AnimationEvent ev;
-		ev.clipId = "MarioJumpRight";
-		ev.frame = 7;
+		ev.clipId = "MarioAttackHammerRight";
+		ev.frame = 20;
+		ev.onEvnet = bind(&Player::OnCompleteJump, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "MarioAttackMagicLeft";
+		ev.frame = 9;
+		ev.onEvnet = bind(&Player::OnCompleteJump, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "MarioAttackMagicRight";
+		ev.frame = 9;
 		ev.onEvnet = bind(&Player::OnCompleteJump, this);
 		animator.AddEnvet(ev);
 	}
@@ -51,18 +84,32 @@ void Player::Reset()
 void Player::Update(float dt)
 {
 	SpriteObj::Update(dt);
-
 	RenderWindow& window = FRAMEWORK->GetWindow();
-	if (InputMgr::GetKeyDown(Keyboard::Key::B))
+	if (InputMgr::GetKeyDown(Keyboard::Key::A))
 	{
-
+		SetWeaponModes(WeaponModes::Hammer);
+		cout << "무기종류 :" << (int)weaponMode << endl;
+	}
+	if (InputMgr::GetKeyDown(Keyboard::Key::S))
+	{
+		SetWeaponModes(WeaponModes::Magic);
+		cout << "무기종류 :" << (int)weaponMode << endl;
 	}
 	direction.x = 0.f;
-	direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
+	if (!(currState == States::Jump)&&!(currState==States::Attack))
+	{
+		direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
+	}
+
 	if (InputMgr::GetKeyDown(Keyboard::Key::Space))
 	{
-		currState = States::Jump;
+		SetState(States::Jump);
 	}
+	if (InputMgr::GetKeyDown(Keyboard::Key::Q))
+	{
+		SetState(States::Attack);
+	}
+
 	switch (currState)
 	{
 	case Player::States::Idle:
@@ -74,7 +121,11 @@ void Player::Update(float dt)
 	case Player::States::Jump:
 		UpdateJump(dt);
 		break;
+	case Player::States::Attack:
+		UpdateAttack(dt);
+		break;
 	}
+
 	animator.Update(dt);
 	if (!Utils::EqualFloat(direction.x, 0.f))
 	{
@@ -113,7 +164,31 @@ void Player::UpdateMove(float dt)
 
 void Player::UpdateJump(float dt)
 {
+	if (!isJump)
+	{
+		battom = position.y;
+	}
+	isJump = true;
+	velocity.x = lastDirection.x == 1 ? abs(velocity.x) : -abs(velocity.x);
+	velocity += gravity * dt;
+	Vector2f delta = velocity * dt;
+	Translate(delta);
+	SetPos(position);
 
+	if (battom-position.y<0.2f&&velocity.y>0.f)
+	{
+		SetPos({position.x, battom});
+		velocity = Vector2f(1000.f, -1000.f);
+		gravity = Vector2f(0.f, 3000.f);
+		isJump = false;
+		OnCompleteJump();
+	}
+
+	
+}
+
+void Player::UpdateAttack(float dt)
+{
 }
 
 void Player::SetState(States newState)
@@ -132,14 +207,22 @@ void Player::SetState(States newState)
 	case Player::States::Jump:
 		animator.Play((lastDirection.x > 0.f) ? "MarioJumpRight" : "MarioJumpLeft");
 		break;
+	case Player::States::Attack:
+		switch (weaponMode)
+		{
+		case WeaponModes::Hammer:
+			animator.Play((lastDirection.x > 0.f) ? "MarioAttackHammerRight" : "MarioAttackHammerLeft");
+			break;
+		case WeaponModes::Magic:
+			animator.Play((lastDirection.x > 0.f) ? "MarioAttackMagicRight" : "MarioAttackMagicLeft");
+			break;
+		}		
 	}
 }
 
-void Player::SetWeaponModes()
+void Player::SetWeaponModes(WeaponModes mode)
 {
-	weaponMode = (WeaponModes)((int)weaponMode + 1);
-	if (weaponMode == WeaponModes::COUNT)
-		weaponMode = WeaponModes::Hammer;
+	weaponMode = mode;
 }
 
 void Player::SetStatData(int idx)
@@ -151,13 +234,6 @@ void Player::SetStatData(int idx)
 	//health = 100;
 	//damage = 10;
 }
-
-//void Player::SetShootType()
-//{
-//	fireMode = (FireModes)((int)fireMode + 1);
-//	if (fireMode == FireModes::COUNT)
-//		fireMode = FireModes::PISTOL;
-//}
 
 //void Player::OnHitZombie(Zombie* zombie)
 //{

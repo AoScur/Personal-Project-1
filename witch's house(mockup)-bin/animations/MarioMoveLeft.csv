@@ -2,13 +2,13 @@ ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
 MarioMoveLeft,1,10,,,,,,
 ,,,,,,,,
 TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
-graphics/MarioMove.png,0,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,27,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,54,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,81,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,108,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,135,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,162,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,189,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,216,0,27,29,13.5,0,0,0
-graphics/MarioMove.png,243,0,27,29,13.5,0,0,0
+graphics/MarioMove.png,0,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,27,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,54,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,81,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,108,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,135,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,162,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,189,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,216,0,27,29,13.5,29,0,0
+graphics/MarioMove.png,243,0,27,29,13.5,29,0,0

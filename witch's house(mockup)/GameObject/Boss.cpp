@@ -16,7 +16,7 @@ void Boss::Init()
 	animator.SetTarget(&sprite);
 	Utils::SetOrigin(sprite, Origins::BC);
 	sprite.setPosition({ 0.f, -380.f });
-	sprite.setScale(4, 5);
+	sprite.setScale(6, 4);
 
 
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontIdle"));

@@ -2,10 +2,10 @@ ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
 MarioJumpLeft,0,10,,,,,,
 ,,,,,,,,
 TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
-graphics/MarioJump.png,0,0,22,31,11,0,0,0
-graphics/MarioJump.png,22,0,22,31,11,0,0,0
-graphics/MarioJump.png,44,0,22,31,11,0,0,0
-graphics/MarioJump.png,66,0,22,31,11,0,0,0
-graphics/MarioJump.png,88,0,22,31,11,0,0,0
-graphics/MarioJump.png,110,0,22,31,11,0,0,0
-graphics/MarioJump.png,132,0,22,31,11,0,0,0
+graphics/MarioJump.png,0,0,22,31,11,31,0,0
+graphics/MarioJump.png,22,0,22,31,11,31,0,0
+graphics/MarioJump.png,44,0,22,31,11,31,0,0
+graphics/MarioJump.png,66,0,22,31,11,31,0,0
+graphics/MarioJump.png,88,0,22,31,11,31,0,0
+graphics/MarioJump.png,110,0,22,31,11,31,0,0
+graphics/MarioJump.png,132,0,22,31,11,31,0,0
