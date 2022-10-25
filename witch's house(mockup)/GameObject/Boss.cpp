@@ -1,6 +1,8 @@
 #include "Boss.h"
+#include "../FrameWork/InputMgr.h"
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
+#include "../GameObject/HitBox.h"
 
 Boss::Boss()
 	:currState(States::None)
@@ -15,14 +17,20 @@ void Boss::Init()
 {
 	animator.SetTarget(&sprite);
 	Utils::SetOrigin(sprite, Origins::BC);
-	sprite.setPosition({ 0.f, -380.f });
+	SetPos({ 0.f, 100.f });
 	sprite.setScale(6, 4);
-
 
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontIdle"));
 	SetState(States::Idle);
 	animator.Play("KoopaFrontIdle");
- 	SpriteObj::Init();
+
+	bodyHitBox = new HitBox();
+	leftArmHitBox = new HitBox();
+	rightArmbodyHitBox = new HitBox();
+
+
+ 	SpriteObj::Init();	
+
 }
 
 void Boss::Reset()
@@ -32,6 +40,7 @@ void Boss::Reset()
 void Boss::Update(float dt)
 {
 	SpriteObj::Update(dt);
+	
 	switch (currState)
 	{
 	case Boss::States::Idle:
@@ -45,11 +54,30 @@ void Boss::Update(float dt)
 		break;
 	}
 	animator.Update(dt);
+
+	if (InputMgr::GetKeyDown(Keyboard::Key::F5))
+	{ 
+		bodyHitBox->SetDevMode(true);
+		leftArmHitBox->SetDevMode(true);
+		rightArmbodyHitBox->SetDevMode(true);
+	}
+
+	FloatRect bossSize = sprite.getGlobalBounds();
+	bodyHitBox->SetHitbox({ 0,0,bossSize.width * 0.3f,bossSize.height * 0.7f });
+	bodyHitBox->SetPos(GetPos());
+	leftArmHitBox->SetHitbox({ 0,0,100.f,70.f });
+	leftArmHitBox->SetPos({ GetPos().x+300,GetPos().y-120 });
+	rightArmbodyHitBox->SetHitbox({ 0,0,100.f,70.f });
+	rightArmbodyHitBox->SetPos({ GetPos().x - 300,GetPos().y - 120 });
+
 }
 
 void Boss::Draw(RenderWindow& window)
 {
 	SpriteObj::Draw(window);
+	bodyHitBox->Draw(window);
+	leftArmHitBox->Draw(window);
+	rightArmbodyHitBox->Draw(window);
 }
 
 void Boss::SetState(States newState)

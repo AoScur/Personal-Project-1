@@ -30,6 +30,7 @@
     <ClCompile Include="Framework\AnimationClip.cpp" />
     <ClCompile Include="Framework\Animator.cpp" />
     <ClCompile Include="GameObject\Boss.cpp" />
+    <ClCompile Include="GameObject\HitBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -65,5 +66,6 @@
     <ClInclude Include="Framework\AnimationClip.h" />
     <ClInclude Include="Framework\Animator.h" />
     <ClInclude Include="GameObject\Boss.h" />
+    <ClInclude Include="GameObject\HitBox.h" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #include "SpriteObj.h"
 #include "../Framework/ObjectPool.h"
 #include "../DataTable/PlayerStatTable.h"
-
+#include "HitBox.h"
 #include "../Framework/Animator.h"
 
 class Pickup;
@@ -43,6 +43,8 @@ protected:
 	bool isJump;
 	float battom;
 
+	HitBox* hitbox;
+
 public:
 	Player() :currState(States::None), speed(200.f), 
 			  direction(1.f, 0.f), lastDirection(1.f, 0.f), 
@@ -68,6 +70,7 @@ public:
 	void SetSpeed(float speed) { this->speed = speed; }
 	void SetDirection(Vector2f direction) { this->direction = direction; }
 
+	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
 	//float GetDamage() const { return damage; }
 	//float GetMaxHealth() { return maxHealth; }
 	//float GetHealth() { return health; }

@@ -157,6 +157,7 @@
     <ClCompile Include="Framework\ResourceMgr.cpp" />
     <ClCompile Include="Framework\Utils.cpp" />
     <ClCompile Include="GameObject\Player.cpp" />
+    <ClCompile Include="GameObject\HitBox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject\Object.cpp" />
     <ClCompile Include="DataTable\PlayerStatTable.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="GameObject\Object.h" />
     <ClInclude Include="GameObject\Player.h" />
     <ClInclude Include="DataTable\PlayerStatTable.h" />
+    <ClInclude Include="GameObject\HitBox.h" />
     <ClInclude Include="Scenes\SceneMenu.h" />
     <ClInclude Include="Scenes\SceneGame.h" />
     <ClInclude Include="Scenes\SceneScoreBoard.h" />

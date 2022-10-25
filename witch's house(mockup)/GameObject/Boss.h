@@ -1,6 +1,8 @@
 #pragma once
 #include "SpriteObj.h"
 #include "../Framework/Animator.h"
+#include "HitBox.h"
+
 
 class Boss :    public SpriteObj
 {
@@ -16,6 +18,11 @@ protected:
 	Animator animator;
 	States currState;
 
+	HitBox* bodyHitBox;
+	HitBox* leftArmHitBox;
+	HitBox* rightArmbodyHitBox;
+
+
 public:
 	Boss();
 	virtual ~Boss();
@@ -28,6 +35,10 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 
 	void SetState(States newState);
+
+	const RectangleShape& GetBodyHitBoxShape() { return bodyHitBox->GetHitbox(); }
+	const RectangleShape& GetLeftArmHitBoxShape() { return leftArmHitBox->GetHitbox(); }
+	const RectangleShape& GetRightArmbodyHitBoxShape() { return rightArmbodyHitBox->GetHitbox(); }
 
 	void UpdateIdle(float dt);
 	void UpdateAttack(float dt);

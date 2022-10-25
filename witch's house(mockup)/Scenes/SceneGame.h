@@ -14,12 +14,13 @@ class SceneGame : public Scene
 {
 protected:
 	SpriteObj* background;
+	SpriteObj* backgroundBattom;
 
 	Player* player;
 	Boss* boss;
 	
 	int stage;
-
+	bool ishandcollision;
 public:
 	SceneGame();
 	virtual ~SceneGame();

@@ -2,15 +2,6 @@ ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
 MarioAttackHammerLeft,0,10,,,,,,
 ,,,,,,,,
 TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
-graphics/128102.png,463,771,16,29,8,29,0,0
-graphics/128102.png,503,771,16,29,8,29,0,0
-graphics/128102.png,543,771,16,29,8,29,0,0
-graphics/128102.png,583,771,16,29,8,29,0,0
-graphics/128102.png,622,771,16,29,8,29,0,0
-graphics/128102.png,661,771,16,29,8,29,0,0
-graphics/128102.png,701,771,16,29,8,29,0,0
-graphics/128102.png,741,771,16,29,8,29,0,0
-graphics/128102.png,456,815,40,25,20,25,0,0
 graphics/128102.png,516,812,39,28,19.5,28,0,0
 graphics/128102.png,573,812,40,28,20,28,0,0
 graphics/128102.png,629,812,40,28,20,28,0,0

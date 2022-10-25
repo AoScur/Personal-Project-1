@@ -5,6 +5,7 @@
 #include "../Framework/SoundMgr.h"
 #include "../Scenes/SceneMgr.h"
 #include "../Ui/UiGameMgr.h"
+#include "HitBox.h"
 
 Player::~Player()
 {
@@ -28,31 +29,18 @@ void Player::Init()
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackHammerRight"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackMagicLeft"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioAttackMagicRight"));
-	//{
-	//	AnimationEvent ev;
-	//	ev.clipId = "MarioJumpLeft";
-	//	ev.frame = 6;
-	//	ev.onEvnet = bind(&Player::OnCompleteJump, this);
-	//	animator.AddEnvet(ev);
-	//}
-	//{
-	//	AnimationEvent ev;
-	//	ev.clipId = "MarioJumpRight";
-	//	ev.frame = 6;
-	//	ev.onEvnet = bind(&Player::OnCompleteJump, this);
-	//	animator.AddEnvet(ev);
-	//}
+
 	{
  		AnimationEvent ev;
 		ev.clipId = "MarioAttackHammerLeft";
-		ev.frame = 20;
+		ev.frame = 11;
 		ev.onEvnet = bind(&Player::OnCompleteJump, this);
 		animator.AddEnvet(ev);
 	}
 	{
 		AnimationEvent ev;
 		ev.clipId = "MarioAttackHammerRight";
-		ev.frame = 20;
+		ev.frame = 11;
 		ev.onEvnet = bind(&Player::OnCompleteJump, this);
 		animator.AddEnvet(ev);
 	}
@@ -72,6 +60,8 @@ void Player::Init()
 	}
 	SetState(States::Idle);
 
+	hitbox = new HitBox();
+	
 	SpriteObj::Init();
 }
 
@@ -85,6 +75,7 @@ void Player::Update(float dt)
 {
 	SpriteObj::Update(dt);
 	RenderWindow& window = FRAMEWORK->GetWindow();
+
 	if (InputMgr::GetKeyDown(Keyboard::Key::A))
 	{
 		SetWeaponModes(WeaponModes::Hammer);
@@ -131,13 +122,19 @@ void Player::Update(float dt)
 	{
 		lastDirection = direction;
 	}
+	Translate(direction*speed * dt);
 
- 	Translate(direction*speed * dt);
+	if (InputMgr::GetKeyDown(Keyboard::Key::F5))
+		hitbox->SetDevMode(true);
+	hitbox->SetHitbox({ GetGlobalBounds() });
+	hitbox->SetPos(GetPos());
 }
 
 void Player::Draw(RenderWindow& window)
 {
+	hitbox->Draw(window);
 	SpriteObj::Draw(window);
+
 }
 
 void Player::UpdateIdle(float dt)
