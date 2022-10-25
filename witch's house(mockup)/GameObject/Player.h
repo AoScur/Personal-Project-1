@@ -37,8 +37,8 @@ protected:
 
 	Vector2f direction;
 	Vector2f lastDirection;
-	Vector2f velocity { 1000.f, -1000.f };
-	Vector2f gravity{ 0.f, 3000.f };
+	Vector2f velocity { 500.f, -800.f };
+	Vector2f gravity{ 0.f, 2000.f };
 	float speed;
 	bool isJump;
 	float battom;
@@ -65,8 +65,8 @@ public:
 	void SetWeaponModes(WeaponModes mode);
 	//void SetHealth(float delta) { health += delta; }
 	void SetStatData(int idx);
-
-	Vector2f GetPosition();
+	void SetSpeed(float speed) { this->speed = speed; }
+	void SetDirection(Vector2f direction) { this->direction = direction; }
 
 	//float GetDamage() const { return damage; }
 	//float GetMaxHealth() { return maxHealth; }

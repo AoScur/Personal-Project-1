@@ -95,17 +95,17 @@ void Player::Update(float dt)
 		SetWeaponModes(WeaponModes::Magic);
 		cout << "무기종류 :" << (int)weaponMode << endl;
 	}
-	direction.x = 0.f;
 	if (!(currState == States::Jump)&&!(currState==States::Attack))
 	{
+		direction.x = 0.f;
 		direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
+		if (InputMgr::GetKeyDown(Keyboard::Key::Space))
+		{
+			SetState(States::Jump);
+		}
 	}
 
-	if (InputMgr::GetKeyDown(Keyboard::Key::Space))
-	{
-		SetState(States::Jump);
-	}
-	if (InputMgr::GetKeyDown(Keyboard::Key::Q))
+	if (!(currState == States::Jump)&&InputMgr::GetKeyDown(Keyboard::Key::Q))
 	{
 		SetState(States::Attack);
 	}
@@ -178,8 +178,8 @@ void Player::UpdateJump(float dt)
 	if (battom-position.y<0.2f&&velocity.y>0.f)
 	{
 		SetPos({position.x, battom});
-		velocity = Vector2f(1000.f, -1000.f);
-		gravity = Vector2f(0.f, 3000.f);
+		velocity = Vector2f(500.f, -800.f);
+		gravity = Vector2f(0.f, 2000.f);
 		isJump = false;
 		OnCompleteJump();
 	}
@@ -243,10 +243,6 @@ void Player::SetStatData(int idx)
 //	}
 //}
 
-Vector2f Player::GetPosition()
-{
-	return position;
-}
 
 void Player::OnCompleteJump()
 {
