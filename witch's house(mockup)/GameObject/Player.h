@@ -39,16 +39,20 @@ protected:
 	Vector2f lastDirection;
 	Vector2f velocity { 500.f, -800.f };
 	Vector2f gravity{ 0.f, 2000.f };
-	float speed;
 	bool isJump;
 	float battom;
 
 	HitBox* hitbox;
 
+	float speed;
+	float maxHealth;
+	float curHealth;
+	float damage;
+
 public:
-	Player() :currState(States::None), speed(200.f), 
-			  direction(1.f, 0.f), lastDirection(1.f, 0.f), 
-		      weaponMode(WeaponModes::Hammer) {}
+	Player() :currState(States::None), weaponMode(WeaponModes::Hammer),
+			  speed(200.f), direction(1.f, 0.f), lastDirection(1.f, 0.f), 
+		       {}
 	virtual ~Player();
 		
 	virtual void Init() override;
@@ -71,9 +75,9 @@ public:
 	void SetDirection(Vector2f direction) { this->direction = direction; }
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
-	//float GetDamage() const { return damage; }
-	//float GetMaxHealth() { return maxHealth; }
-	//float GetHealth() { return health; }
+	float GetDamage() const { return damage; }
+	float GetMaxHealth() { return maxHealth; }
+	float GetHealth() { return health; }
 
 	void OnCompleteJump();
 };
