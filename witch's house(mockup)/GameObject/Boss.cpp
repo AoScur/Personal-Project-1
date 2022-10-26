@@ -26,7 +26,7 @@ void Boss::Init()
 
 	bodyHitBox = new HitBox();
 	leftArmHitBox = new HitBox();
-	rightArmbodyHitBox = new HitBox();
+	rightArmHitBox = new HitBox();
 
 
  	SpriteObj::Init();	
@@ -59,7 +59,7 @@ void Boss::Update(float dt)
 	{ 
 		bodyHitBox->SetDevMode(true);
 		leftArmHitBox->SetDevMode(true);
-		rightArmbodyHitBox->SetDevMode(true);
+		rightArmHitBox->SetDevMode(true);
 	}
 
 	FloatRect bossSize = sprite.getGlobalBounds();
@@ -67,8 +67,8 @@ void Boss::Update(float dt)
 	bodyHitBox->SetPos(GetPos());
 	leftArmHitBox->SetHitbox({ 0,0,100.f,70.f });
 	leftArmHitBox->SetPos({ GetPos().x+300,GetPos().y-120 });
-	rightArmbodyHitBox->SetHitbox({ 0,0,100.f,70.f });
-	rightArmbodyHitBox->SetPos({ GetPos().x - 300,GetPos().y - 120 });
+	rightArmHitBox->SetHitbox({ 0,0,100.f,70.f });
+	rightArmHitBox->SetPos({ GetPos().x - 300,GetPos().y - 120 });
 
 }
 
@@ -77,7 +77,7 @@ void Boss::Draw(RenderWindow& window)
 	SpriteObj::Draw(window);
 	bodyHitBox->Draw(window);
 	leftArmHitBox->Draw(window);
-	rightArmbodyHitBox->Draw(window);
+	rightArmHitBox->Draw(window);
 }
 
 void Boss::SetState(States newState)

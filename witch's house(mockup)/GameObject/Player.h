@@ -6,7 +6,6 @@
 #include "../Framework/Animator.h"
 
 class Pickup;
-class Scene;
 class UiMgr;
 
 
@@ -37,7 +36,7 @@ protected:
 
 	Vector2f direction;
 	Vector2f lastDirection;
-	Vector2f velocity { 500.f, -800.f };
+	Vector2f velocity { 300.f, -800.f };
 	Vector2f gravity{ 0.f, 2000.f };
 	bool isJump;
 	float battom;
@@ -49,9 +48,11 @@ protected:
 	float curHealth;
 	float damage;
 
+	bool ishandcollision;
+
 public:
 	Player() :currState(States::None), weaponMode(WeaponModes::Hammer),
-			  speed(200.f), direction(1.f, 0.f), lastDirection(1.f, 0.f), 
+			  speed(200.f), direction(1.f, 0.f), lastDirection(1.f, 0.f), ishandcollision(false)
 		       {}
 	virtual ~Player();
 		
@@ -73,11 +74,13 @@ public:
 	void SetStatData(int idx);
 	void SetSpeed(float speed) { this->speed = speed; }
 	void SetDirection(Vector2f direction) { this->direction = direction; }
+	void SetIsHandCollision(bool ishandcollision) {	this->ishandcollision= ishandcollision;}
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
+	bool GetIsJump() { return isJump; }
 	float GetDamage() const { return damage; }
 	float GetMaxHealth() { return maxHealth; }
-	float GetHealth() { return health; }
+	float GetCurHealth() { return curHealth; }
 
 	void OnCompleteJump();
 };

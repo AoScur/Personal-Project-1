@@ -61,7 +61,9 @@ void Player::Init()
 	SetState(States::Idle);
 
 	hitbox = new HitBox();
+
 	
+
 	SpriteObj::Init();
 }
 
@@ -89,7 +91,9 @@ void Player::Update(float dt)
 	if (!(currState == States::Jump)&&!(currState==States::Attack))
 	{
 		direction.x = 0.f;
+		Vector2f curpos = GetPos();
 		direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
+		
 		if (InputMgr::GetKeyDown(Keyboard::Key::Space))
 		{
 			SetState(States::Jump);
@@ -166,17 +170,19 @@ void Player::UpdateJump(float dt)
 		battom = position.y;
 	}
 	isJump = true;
+	speed = 0;
 	velocity.x = lastDirection.x == 1 ? abs(velocity.x) : -abs(velocity.x);
 	velocity += gravity * dt;
 	Vector2f delta = velocity * dt;
 	Translate(delta);
-	SetPos(position);
+	//SetPos(position);
 
 	if (battom-position.y<0.2f&&velocity.y>0.f)
 	{
 		SetPos({position.x, battom});
-		velocity = Vector2f(500.f, -800.f);
+		velocity = Vector2f(300.f, -800.f);
 		gravity = Vector2f(0.f, 2000.f);
+		speed = 200.f;
 		isJump = false;
 		OnCompleteJump();
 	}

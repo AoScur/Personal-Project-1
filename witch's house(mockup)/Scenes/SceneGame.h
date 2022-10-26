@@ -20,7 +20,7 @@ protected:
 	Boss* boss;
 	
 	int stage;
-	bool ishandcollision;
+
 public:
 	SceneGame();
 	virtual ~SceneGame();
@@ -34,4 +34,5 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
+
 };

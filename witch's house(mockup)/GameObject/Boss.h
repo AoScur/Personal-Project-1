@@ -20,7 +20,7 @@ protected:
 
 	HitBox* bodyHitBox;
 	HitBox* leftArmHitBox;
-	HitBox* rightArmbodyHitBox;
+	HitBox* rightArmHitBox;
 
 
 public:
@@ -38,7 +38,7 @@ public:
 
 	const RectangleShape& GetBodyHitBoxShape() { return bodyHitBox->GetHitbox(); }
 	const RectangleShape& GetLeftArmHitBoxShape() { return leftArmHitBox->GetHitbox(); }
-	const RectangleShape& GetRightArmbodyHitBoxShape() { return rightArmbodyHitBox->GetHitbox(); }
+	const RectangleShape& GetRightArmHitBoxShape() { return rightArmHitBox->GetHitbox(); }
 
 	void UpdateIdle(float dt);
 	void UpdateAttack(float dt);

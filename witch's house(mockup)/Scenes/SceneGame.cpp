@@ -7,6 +7,7 @@
 #include "../Ui/UiGameMgr.h"
 #include "../GameObject/Boss.h"
 #include "../GameObject/HitBox.h"
+#include "../Scenes/SceneGame.h"
 
 SceneGame::SceneGame()
 	: Scene(Scenes::Game)
@@ -81,20 +82,53 @@ void SceneGame::Update(float dt)
 	boss->Update(dt);
 	backgroundBattom->Update(dt);
 	player->Update(dt);
+	//뷰 조정
 	worldView.setCenter(player->GetPos().x, player->GetPos().y - 200);
 
-	if (Utils::OBB(player->GetHitBoxShape(), boss->GetLeftArmHitBoxShape())|| Utils::OBB(player->GetHitBoxShape(), boss->GetRightArmbodyHitBoxShape()))
+	if (worldView.getCenter().x - worldView.getSize().x * 0.5f < background->GetGlobalBounds().left)
 	{
-		cout << "hand collision" << endl;
-		if (player->GetPos().x > boss->GetLeftArmHitBoxShape().getOrigin().x || player->GetPos().x > boss->GetRightArmbodyHitBoxShape().getOrigin().x)
-		{
-			player->SetDirection({ 1.f,0.f });
+		worldView.setCenter(background->GetGlobalBounds().left + worldView.getSize().x * 0.5f, player->GetPos().y - 200);
+	}
+	else if (worldView.getCenter().x + worldView.getSize().x * 0.5f > background->GetGlobalBounds().left+ background->GetGlobalBounds().width)
+	{
+		worldView.setCenter(background->GetGlobalBounds().left+ background->GetGlobalBounds().width - worldView.getSize().x * 0.5f, player->GetPos().y - 200);
+	}
+	//보스 손과 충돌 처리
+	if (!player->GetIsJump())
+	{
+		if (Utils::OBB(player->GetHitBoxShape(), boss->GetLeftArmHitBoxShape()))
+		{			
+			player->SetIsHandCollision(true);
+			if (player->GetPos().x > boss->GetLeftArmHitBoxShape().getGlobalBounds().left + boss->GetLeftArmHitBoxShape().getGlobalBounds().width*0.5)
+			{
+				player->SetPos({ boss->GetLeftArmHitBoxShape().getGlobalBounds().left + boss->GetLeftArmHitBoxShape().getGlobalBounds().width + player->GetGlobalBounds().width * 0.5f, player->GetPos().y });
+				cout << "1" << endl;
+			}
+			else
+			{
+				player->SetPos({ boss->GetLeftArmHitBoxShape().getGlobalBounds().left - player->GetGlobalBounds().width * 0.5f, player->GetPos().y });
+				cout << "2" << endl;
+			}
+			//cout << "collision" << endl;
 		}
-		else
+		if (Utils::OBB(player->GetHitBoxShape(), boss->GetRightArmHitBoxShape()))
 		{
-			player->SetDirection({ -1.f,0.f });
+			player->SetIsHandCollision(true);
+			if (player->GetPos().x > boss->GetRightArmHitBoxShape().getGlobalBounds().left + boss->GetRightArmHitBoxShape().getGlobalBounds().width*0.5)
+			{
+				player->SetPos({ boss->GetRightArmHitBoxShape().getGlobalBounds().left + boss->GetRightArmHitBoxShape().getGlobalBounds().width + player->GetGlobalBounds().width * 0.5f, player->GetPos().y });
+				cout << "3" << endl;
+			}
+			else
+			{
+				player->SetPos({ boss->GetRightArmHitBoxShape().getGlobalBounds().left - player->GetGlobalBounds().width * 0.5f, player->GetPos().y });
+				cout << "4" << endl;
+			}
+			//cout << "collision" << endl;
 		}
 	}
+
+
 }
 
 void SceneGame::Draw(RenderWindow& window)
