@@ -4,9 +4,11 @@
 #include "../DataTable/PlayerStatTable.h"
 #include "HitBox.h"
 #include "../Framework/Animator.h"
+#include <list>
 
 class Pickup;
 class UiMgr;
+class Projectile;
 
 
 enum class WeaponModes
@@ -50,6 +52,9 @@ protected:
 
 	bool ishandcollision;
 
+	std::list<Projectile*> unuseFireBalls;
+	std::list<Projectile*> useFireBalls;
+
 public:
 	Player() :currState(States::None), weaponMode(WeaponModes::Hammer),
 			  speed(200.f), direction(1.f, 0.f), lastDirection(1.f, 0.f), ishandcollision(false)
@@ -71,7 +76,7 @@ public:
 	void SetState(States newState);
 	void SetWeaponModes(WeaponModes mode);
 	//void SetHealth(float delta) { health += delta; }
-	void SetStatData(int idx);
+	void SetStatusData(int idx);
 	void SetSpeed(float speed) { this->speed = speed; }
 	void SetDirection(Vector2f direction) { this->direction = direction; }
 	void SetIsHandCollision(bool ishandcollision) {	this->ishandcollision= ishandcollision;}
@@ -83,4 +88,6 @@ public:
 	float GetCurHealth() { return curHealth; }
 
 	void OnCompleteJump();
+	
+	void ShowFireBall();
 };

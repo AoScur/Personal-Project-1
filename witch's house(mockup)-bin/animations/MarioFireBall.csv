@@ -1,0 +1,8 @@
+ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
+MarioFireBall,1,10,,,,,,
+,,,,,,,,
+TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
+graphics/128102.png,832,2289,16,14,8,7,0,0
+graphics/128102.png,849,2288,14,16,7,8,0,0
+graphics/128102.png,864,2289,16,14,8,7,0,0
+graphics/128102.png,881,2288,14,16,7,8,0,0
