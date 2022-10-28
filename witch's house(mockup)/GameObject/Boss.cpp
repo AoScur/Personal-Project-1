@@ -2,7 +2,7 @@
 #include "../FrameWork/InputMgr.h"
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
-#include "../GameObject/HitBox.h"
+#include "HitBox.h"
 
 Boss::Boss()
 	:currState(States::None)

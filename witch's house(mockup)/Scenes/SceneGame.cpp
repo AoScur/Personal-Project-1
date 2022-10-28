@@ -8,6 +8,15 @@
 #include "../GameObject/Boss.h"
 #include "../GameObject/HitBox.h"
 #include "../Scenes/SceneGame.h"
+#include "../GameObject/underling.h"
+#include "../GameObject/Projectile.h"
+
+void OnCreateFireBall(Projectile* fireball)
+{
+	SceneGame* scene = (SceneGame*)SCENE_MGR->GetScene(Scenes::Game);
+	fireball->SetUnderlingList(scene->GetUnderlingList());
+	fireball->Init();
+}
 
 SceneGame::SceneGame()
 	: Scene(Scenes::Game)
@@ -42,8 +51,14 @@ void SceneGame::Init()
 	boss = new Boss();
 	boss->SetName("Boss");
 	boss->Init();
-	
+	CreateUnderling(10);
 
+	fireballs.OnCreate = OnCreateFireBall;
+	fireballs.Init();
+	//underling = new Underling();
+	//underling->SetPos({ 100.f,0.f });
+	//underling->Init(player);
+	
 }
 
 void SceneGame::Release()
@@ -55,7 +70,10 @@ void SceneGame::Enter()
 {
 	player->Reset();
 	boss->Reset();
-		//마우스 커서
+	/*underling->Reset();*/
+
+
+	//마우스 커서
 	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
 	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
 	Vector2i size = FRAMEWORK->GetWindowSize();
@@ -72,6 +90,15 @@ void SceneGame::Exit()
 	//item
 	player->Reset();
 	SOUND_MGR->StopAll();
+	/*underling->Reset();*/
+	auto it = underlings.begin();
+	while (it != underlings.end())
+	{
+		objList.remove(*it);
+		delete* it;
+
+		it = underlings.erase(it);
+	}
 }
 
 void SceneGame::Update(float dt)
@@ -81,7 +108,12 @@ void SceneGame::Update(float dt)
 	background->Update(dt);
 	boss->Update(dt);
 	backgroundBattom->Update(dt);
+	fireballs.Update(dt);
 	player->Update(dt);
+	for (auto it = underlings.begin(); it != underlings.end(); it++)
+	{
+		(*it)->Update(dt);
+	}
 	//뷰 조정
 	worldView.setCenter(player->GetPos().x, player->GetPos().y - 200);
 
@@ -127,8 +159,26 @@ void SceneGame::Update(float dt)
 			//cout << "collision" << endl;
 		}
 	}
+	for (auto it = underlings.begin(); it != underlings.end(); )
+	{
+		if (!(*it)->GetActive())
+		{
+			it = underlings.erase(it);
+		}
+		else
+			it++;
+	}
 
-
+	for (auto it = objList.begin(); it != objList.end(); )
+	{
+		if (!(*it)->GetActive())
+		{
+			delete (*it);
+			it = objList.erase(it);
+		}
+		else
+			it++;
+	}
 }
 
 void SceneGame::Draw(RenderWindow& window)
@@ -139,5 +189,22 @@ void SceneGame::Draw(RenderWindow& window)
 	boss->Draw(window);
 	backgroundBattom->Draw(window);
 	player->Draw(window);
+	for (auto it = objList.begin(); it != objList.end(); it++)
+	{
+		(*it)->Draw(window);
+	}
 	
+}
+
+void SceneGame::CreateUnderling(int count)
+{
+	for (int i = 0; i < count; i++)
+	{
+		Underling* underling = new Underling();
+		Vector2f genPos = {Utils::RandomRange(400.f, 600.f), 0.f};
+		underling->SetPos(genPos);
+		underling->Init(player);
+		objList.push_back(underling);
+		underlings.push_back(underling);
+	}
 }

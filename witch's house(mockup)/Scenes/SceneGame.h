@@ -5,8 +5,8 @@
 
 class Player;
 class Boss;
-class VertexArrayObj;
-class Bullet;
+class Underling;
+class Projectile;
 class SpriteObj;
 class Pickup;
 
@@ -15,6 +15,10 @@ class SceneGame : public Scene
 protected:
 	SpriteObj* background;
 	SpriteObj* backgroundBattom;
+
+	//Underling* underling;
+	list<Underling*> underlings;
+	ObjectPool<Projectile> fireballs;
 
 	Player* player;
 	Boss* boss;
@@ -35,4 +39,6 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
+	void CreateUnderling(int count);
+	list<Underling*>* GetUnderlingList() { return &underlings; }
 };

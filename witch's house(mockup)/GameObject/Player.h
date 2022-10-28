@@ -9,6 +9,7 @@
 class Pickup;
 class UiMgr;
 class Projectile;
+class Underling;
 
 
 enum class WeaponModes
@@ -52,6 +53,7 @@ protected:
 
 	bool ishandcollision;
 
+	Texture fireball;
 	std::list<Projectile*> unuseFireBalls;
 	std::list<Projectile*> useFireBalls;
 
@@ -75,11 +77,11 @@ public:
 
 	void SetState(States newState);
 	void SetWeaponModes(WeaponModes mode);
-	//void SetHealth(float delta) { health += delta; }
 	void SetStatusData(int idx);
 	void SetSpeed(float speed) { this->speed = speed; }
 	void SetDirection(Vector2f direction) { this->direction = direction; }
 	void SetIsHandCollision(bool ishandcollision) {	this->ishandcollision= ishandcollision;}
+	void SetHealth(float delta) { curHealth += delta; }
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
 	bool GetIsJump() { return isJump; }
@@ -88,6 +90,8 @@ public:
 	float GetCurHealth() { return curHealth; }
 
 	void OnCompleteJump();
+
+	void OnHitUnderling(Underling* underling);
 	
 	void ShowFireBall();
 };

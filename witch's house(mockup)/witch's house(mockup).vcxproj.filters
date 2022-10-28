@@ -32,6 +32,7 @@
     <ClCompile Include="GameObject\Boss.cpp" />
     <ClCompile Include="GameObject\HitBox.cpp" />
     <ClCompile Include="GameObject\Projectile.cpp" />
+    <ClCompile Include="GameObject\Underling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -69,5 +70,6 @@
     <ClInclude Include="GameObject\Boss.h" />
     <ClInclude Include="GameObject\HitBox.h" />
     <ClInclude Include="GameObject\Projectile.h" />
+    <ClInclude Include="GameObject\Underling.h" />
   </ItemGroup>
 </Project>

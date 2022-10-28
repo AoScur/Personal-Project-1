@@ -1,0 +1,12 @@
+ID,LOOPTYPE (0: Single 1: Move),FPS,,,,,,
+UnderlingMoveLeft,1,10,,,,,,
+,,,,,,,,
+TEXTURE ID,L,T,W,H,X,Y,FLIPX,FLIPY
+graphics/AllKoopa.png,7,8111,27,34,13.5,34,1,0
+graphics/AllKoopa.png,41,8111,37,34,18.5,34,1,0
+graphics/AllKoopa.png,83,8111,31,34,15.5,34,1,0
+graphics/AllKoopa.png,119,8111,37,34,18.5,34,1,0
+graphics/AllKoopa.png,158,8111,37,34,18.5,34,1,0
+graphics/AllKoopa.png,197,8111,37,34,18.5,34,1,0
+graphics/AllKoopa.png,241,8111,27,34,13.5,34,1,0
+graphics/AllKoopa.png,280,8111,27,34,13.5,34,1,0

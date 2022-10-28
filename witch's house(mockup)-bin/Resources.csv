@@ -6,6 +6,7 @@ graphics/KoopaFrontIdle.png,0
 graphics/koopaFrontAttack.png,0
 graphics/game_background.png,0
 graphics/128102.png,0
+graphics/AllKoopa.png,0
 graphics/game_background_battom.png,0
 animations/MarioFireBall.csv,3
 animations/MarioIdleLeft.csv,3
@@ -19,3 +20,5 @@ animations/MarioAttackHammerLeft.csv,3
 animations/MarioAttackHammerRight.csv,3
 animations/MarioAttackMagicLeft.csv,3
 animations/MarioAttackMagicRight.csv,3
+animations/UnderlingMoveLeft.csv,3
+animations/UnderlingMoveRight.csv,3

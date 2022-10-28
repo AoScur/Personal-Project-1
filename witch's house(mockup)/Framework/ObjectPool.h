@@ -42,6 +42,7 @@ ObjectPool<T>::~ObjectPool()
 template <typename T>
 void ObjectPool<T>::Init(int cacheSize)
 {
+	Release();
 	for ( int i = 0; i < cacheSize; ++i )
 	{
 		T* ptr = new T();

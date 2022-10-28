@@ -7,6 +7,7 @@
 #include "../Ui/UiGameMgr.h"
 #include "HitBox.h"
 #include "Projectile.h"
+#include "Underling.h"
 
 Player::~Player()
 {
@@ -281,13 +282,10 @@ void Player::SetStatusData(int idx)
 	curHealth = 500;
 }
 
-//void Player::OnHitZombie(Zombie* zombie)
-//{
-//	if (Utils::OBB(hitbox, zombie->GetHitbox()))
-//	{
-//		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
-//	}
-//}
+void Player::OnHitUnderling(Underling* underling)
+{
+	SetHealth(-FRAMEWORK->GetRealDT() * 10.f * underling->GetDamage());
+}
 
 
 void Player::OnCompleteJump()
@@ -305,9 +303,9 @@ void Player::ShowFireBall()
 	useFireBalls.push_back(fireball);
 
 	Vector2f fireBallPosition;
-	fireBallPosition.x = (lastDirection.x < 0.f) ? GetPos().x - 35.f : -GetPos().x + 35.f;
+	fireBallPosition.x = (lastDirection.x < 0.f) ? GetPos().x - 35.f : GetPos().x + 35.f;
 	fireBallPosition.y = GetPos().y - 27.f;
 
 	fireball->SetPos(fireBallPosition);
-	fireball->Fire();
+	fireball->Fire(lastDirection);
 }

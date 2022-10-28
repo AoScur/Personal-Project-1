@@ -1,5 +1,6 @@
 #include "HitBox.h"
 #include "../Framework/Utils.h"
+#include "../Framework/InputMgr.h"
 
 HitBox::HitBox()
 {
@@ -32,7 +33,6 @@ void HitBox::Reset()
 
 void HitBox::Update(float dt)
 {
-	
 }
 
 void HitBox::Draw(RenderWindow& window)
