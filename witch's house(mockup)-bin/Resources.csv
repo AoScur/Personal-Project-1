@@ -3,7 +3,6 @@ graphics/MarioIdle.png,0
 graphics/MarioJump.png,0
 graphics/MarioMove.png,0
 graphics/KoopaFrontIdle.png,0
-graphics/koopaFrontAttack.png,0
 graphics/game_background.png,0
 graphics/128102.png,0
 graphics/AllKoopa.png,0
@@ -15,10 +14,16 @@ animations/MarioJumpLeft.csv,3
 animations/MarioJumpRight.csv,3
 animations/MarioMoveLeft.csv,3
 animations/MarioMoveRight.csv,3
-animations/KoopaFrontIdle.csv,3
 animations/MarioAttackHammerLeft.csv,3
 animations/MarioAttackHammerRight.csv,3
 animations/MarioAttackMagicLeft.csv,3
 animations/MarioAttackMagicRight.csv,3
+animations/KoopaFrontIdle.csv,3
+animations/KoopaAppear.csv,3
+animations/KoopaFronAttackLeft.csv,3
+animations/KoopaFronAttackRight.csv,3
+animations/KoopaLeftFascination.csv,3
+animations/KoopaLeftFascinationSuccess.csv,3
+animations/KoopaStrikeDown.csv,3
 animations/UnderlingMoveLeft.csv,3
 animations/UnderlingMoveRight.csv,3

@@ -25,7 +25,7 @@ public:
 	Underling();
 	virtual ~Underling();
 
-	void Init(Player* player);
+	void Init();
 
 	virtual void Reset() override;
 
@@ -36,7 +36,7 @@ public:
 	float GetDamage() { return damage; }
 
 	void SetHealth(float delta) { health = health + delta; }
-
+	void SetPlayer(Player* player) { this->player = player; }
 	void OnHitFireBall(Projectile* fireball);
 
 };

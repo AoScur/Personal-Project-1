@@ -5,10 +5,10 @@
 #include "HitBox.h"
 #include "../Framework/Animator.h"
 #include <list>
+#include "../GameObject/Projectile.h"
 
 class Pickup;
 class UiMgr;
-class Projectile;
 class Underling;
 
 
@@ -53,9 +53,8 @@ protected:
 
 	bool ishandcollision;
 
-	Texture fireball;
-	std::list<Projectile*> unuseFireBalls;
-	std::list<Projectile*> useFireBalls;
+	Projectile* fireBall;
+	
 
 public:
 	Player() :currState(States::None), weaponMode(WeaponModes::Hammer),
@@ -84,6 +83,7 @@ public:
 	void SetHealth(float delta) { curHealth += delta; }
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
+	const RectangleShape& GetFireBallHitBoxShape() { return fireBall->GetHitBoxShape(); }
 	bool GetIsJump() { return isJump; }
 	float GetDamage() const { return damage; }
 	float GetMaxHealth() { return maxHealth; }

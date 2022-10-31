@@ -46,18 +46,18 @@ void Projectile::Update(float dt)
 	hitbox->SetHitbox({ GetGlobalBounds() });
 	hitbox->SetPos(GetPos());
 
-	for (Underling* underling : *underlings)
-	{
-		if (underling->GetActive())
-		{
-			if (Utils::OBB(hitbox->GetHitbox(), underling->GetHitBoxShape()))
-			{
-				underling->OnHitFireBall(this);
-				SetActive(false);
-				break;
-			}
-		}
-	}
+	//for (Underling* underling : *underlings)
+	//{
+	//	if (underling->GetActive())
+	//	{
+	//		if (Utils::OBB(hitbox->GetHitbox(), underling->GetHitBoxShape()))
+	//		{
+	//			underling->OnHitFireBall(this);
+	//			SetActive(false);
+	//			break;
+	//		}
+	//	}
+	//}
 	SpriteObj::Update(dt);
 }
 

@@ -4,15 +4,19 @@
 #include "HitBox.h"
 
 
-class Boss :    public SpriteObj
+class Boss : public SpriteObj
 {
 public:
 	enum class States
 	{
 		None = -1,
+		Appear,
 		Idle,
-		Attack,
-		Left,
+		AttackLeft,
+		AttackRight,
+		StrikeDown,
+		Fascination,
+		FascinationSuccess,
 	};
 protected:
 	Animator animator;
@@ -40,9 +44,14 @@ public:
 	const RectangleShape& GetLeftArmHitBoxShape() { return leftArmHitBox->GetHitbox(); }
 	const RectangleShape& GetRightArmHitBoxShape() { return rightArmHitBox->GetHitbox(); }
 
+	void UpdateAppear(float dt);
 	void UpdateIdle(float dt);
-	void UpdateAttack(float dt);
-	void UpdateLeft(float dt);
+	void UpdateAttackLeft(float dt);
+	void UpdateAttackRight(float dt);
+	void UpdateStrikeDown(float dt);
+	void UpdateFascination(float dt);
+	void UpdateFascinationSuccess(float dt);
+
 
 	Vector2f GetPosition() { return position; }
 };

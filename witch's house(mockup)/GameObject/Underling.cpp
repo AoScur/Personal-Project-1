@@ -14,13 +14,13 @@ Underling::~Underling()
 {
 }
 
-void Underling::Init(Player* player)
+void Underling::Init()
 {
  	animator.SetTarget(&sprite);
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("UnderlingMoveLeft"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("UnderlingMoveRight"));
 	
-	this->player = player;
+	//this->player = player;
 	hitbox = new HitBox();
 
 	SpriteObj::Init();

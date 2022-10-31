@@ -17,14 +17,11 @@ protected:
 	SpriteObj* backgroundBattom;
 
 	//Underling* underling;
-	list<Underling*> underlings;
-	ObjectPool<Projectile> fireballs;
+	ObjectPool<Underling> underlings;
 
 	Player* player;
 	Boss* boss;
 	
-	int stage;
-
 public:
 	SceneGame();
 	virtual ~SceneGame();
@@ -40,5 +37,5 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 
 	void CreateUnderling(int count);
-	list<Underling*>* GetUnderlingList() { return &underlings; }
+	const list<Underling*>& GetUnderlingList() { return underlings.GetUseList(); }
 };

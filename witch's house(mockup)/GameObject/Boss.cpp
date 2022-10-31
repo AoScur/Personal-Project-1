@@ -17,11 +17,18 @@ void Boss::Init()
 {
 	animator.SetTarget(&sprite);
 	Utils::SetOrigin(sprite, Origins::BC);
-	SetPos({ 0.f, 100.f });
 	sprite.setScale(6, 4);
 
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaAppear"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontIdle"));
-	SetState(States::Idle);
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontAttackLeft"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontAttackRight"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaLeftFascination"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaLeftFascinationSuccess"));
+	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaStrikeDown"));
+
+
+	SetState(States::Appear);
 	animator.Play("KoopaFrontIdle");
 
 	bodyHitBox = new HitBox();
@@ -43,14 +50,26 @@ void Boss::Update(float dt)
 	
 	switch (currState)
 	{
+	case Boss::States::Appear:
+		UpdateAppear(dt);
+		break;
 	case Boss::States::Idle:
-		SetState(States::Idle);
+		UpdateIdle(dt);
 		break;
-	case Boss::States::Attack:
-		SetState(States::Attack);
+	case Boss::States::AttackLeft:
+		UpdateAttackLeft(dt);
 		break;
-	case Boss::States::Left:
-		SetState(States::Left);
+	case Boss::States::AttackRight:
+		UpdateAttackRight(dt);
+		break;
+	case Boss::States::StrikeDown:
+		UpdateStrikeDown(dt);
+		break;
+	case Boss::States::Fascination:
+		UpdateFascination(dt);
+		break;
+	case Boss::States::FascinationSuccess:
+		UpdateFascinationSuccess(dt);
 		break;
 	}
 	animator.Update(dt);
@@ -61,7 +80,8 @@ void Boss::Update(float dt)
 		leftArmHitBox->SetDevMode(true);
 		rightArmHitBox->SetDevMode(true);
 	}
-
+	
+	
 	FloatRect bossSize = sprite.getGlobalBounds();
 	bodyHitBox->SetHitbox({ 0,0,bossSize.width * 0.3f,bossSize.height * 0.7f });
 	bodyHitBox->SetPos(GetPos());
@@ -86,26 +106,72 @@ void Boss::SetState(States newState)
 	//	return;	
 	switch (currState)
 	{
+	case Boss::States::Appear:
+		animator.Play("KoopaAppear");
+		break;
 	case Boss::States::Idle:
 		animator.Play("KoopaFrontIdle");
 		break;
-	case Boss::States::Attack:
-		
+	case Boss::States::AttackLeft:
+		animator.Play("KoopaFrontAttackLeft");
 		break;
-	case Boss::States::Left:
-	
+	case Boss::States::AttackRight:
+		animator.Play("KoopaFrontAttackRight");
 		break;
+	case Boss::States::StrikeDown:
+		animator.Play("KoopaLeftFascination");
+		break;
+	case Boss::States::Fascination:
+		animator.Play("KoopaLeftFascinationSuccess");
+		break;
+	case Boss::States::FascinationSuccess:
+		animator.Play("KoopaStrikeDown");
+		break;
+	}
+}
+
+void Boss::UpdateAppear(float dt)
+{
+	SetPos({ 0.f, -400.f });
+	SetState(States::Appear);
+	Vector2f velocity(0.f, -700.f);
+	Vector2f gravity(0.f, 2000.f);
+	velocity += gravity * dt;
+	Vector2f delta = velocity * dt;
+	Translate(delta);
+	if (velocity.y>0.f&&GetPos().y<100.f)
+	{
+		SetPos({ 0.f, 100.f });
 	}
 }
 
 void Boss::UpdateIdle(float dt)
 {
+	SetPos({ 0.f, 100.f });
+	SetState(States::Idle);
 }
 
-void Boss::UpdateAttack(float dt)
+void Boss::UpdateAttackLeft(float dt)
 {
+	SetState(States::AttackLeft);
 }
 
-void Boss::UpdateLeft(float dt)
+void Boss::UpdateAttackRight(float dt)
 {
+	SetState(States::AttackRight);
+}
+
+void Boss::UpdateStrikeDown(float dt)
+{
+	SetState(States::StrikeDown);
+}
+
+void Boss::UpdateFascination(float dt)
+{
+	SetState(States::Fascination);
+}
+
+void Boss::UpdateFascinationSuccess(float dt)
+{
+	SetState(States::FascinationSuccess);
 }

@@ -79,13 +79,10 @@ void Player::Init()
 
 	hitbox = new HitBox();
 
-	for (int i = 0; i < 20; ++i)
-	{
-		auto fireball = new Projectile();
-		fireball->Init();
-		fireball->SetActive(false);
-		unuseFireBalls.push_back(fireball);
-	}
+	auto fireball = new Projectile();
+	fireball->Init();
+	fireball->SetActive(false);
+	
 
 	SpriteObj::Init();
 }
@@ -101,20 +98,6 @@ void Player::Update(float dt)
 	SpriteObj::Update(dt);
 	RenderWindow& window = FRAMEWORK->GetWindow();
 
-	auto it = useFireBalls.begin();
-	while (it != useFireBalls.end())
-	{
-		(*it)->Update(dt);
-		if (!(*it)->GetActive())
-		{
-			unuseFireBalls.push_back(*it);
-			it = useFireBalls.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
 	if (InputMgr::GetKeyDown(Keyboard::Key::A))
 	{
 		SetWeaponModes(WeaponModes::Hammer);
@@ -172,6 +155,8 @@ void Player::Update(float dt)
 	hitbox->SetHitbox({ GetGlobalBounds() });
 	hitbox->SetPos(GetPos());
 
+	fireBall->Update(dt);
+
 
 }
 
@@ -179,11 +164,8 @@ void Player::Draw(RenderWindow& window)
 {
 	hitbox->Draw(window);
 	SpriteObj::Draw(window);
-
-	for (auto fireball : useFireBalls)
-	{
-		fireball->Draw(window);
-	}
+	fireBall->Draw(window);
+	
 }
 
 void Player::UpdateIdle(float dt)
@@ -295,17 +277,10 @@ void Player::OnCompleteJump()
 
 void Player::ShowFireBall()
 {
-	if (unuseFireBalls.empty())
-		return;
-
-	auto fireball = unuseFireBalls.front();
-	unuseFireBalls.pop_front();
-	useFireBalls.push_back(fireball);
-
 	Vector2f fireBallPosition;
 	fireBallPosition.x = (lastDirection.x < 0.f) ? GetPos().x - 35.f : GetPos().x + 35.f;
 	fireBallPosition.y = GetPos().y - 27.f;
 
-	fireball->SetPos(fireBallPosition);
-	fireball->Fire(lastDirection);
+	fireBall->SetPos(fireBallPosition);
+	fireBall->Fire(lastDirection);
 }
