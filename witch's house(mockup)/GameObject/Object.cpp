@@ -41,7 +41,7 @@ void Object::Release()
 
 void Object::Reset()
 {
-	enabled = true;
+	
 }
 
 void Object::SetPos(const Vector2f& pos)

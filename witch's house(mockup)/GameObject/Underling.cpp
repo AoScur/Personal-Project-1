@@ -6,7 +6,7 @@
 #include "Projectile.h"
 
 Underling::Underling()
-	: speed(50.f), maxHp(50), health(200), damage(5)
+	: speed(50.f), maxHealth(200), curHealth(maxHealth), damage(10)
 {
 }
 
@@ -28,6 +28,7 @@ void Underling::Init()
 
 void Underling::Reset()
 {
+
 }
 
 void Underling::Update(float dt)
@@ -37,6 +38,7 @@ void Underling::Update(float dt)
 	direction = Utils::Normalize(player->GetPos() - GetPos());
 	direction.y = 0.f;
 	Translate(direction * this->speed * dt);
+	
 	if (!Utils::EqualFloat(direction.x, lastDirection.x))
 	{
 		animator.Play((direction.x > 0.f) ? "UnderlingMoveRight" : "UnderlingMoveLeft");
@@ -55,6 +57,11 @@ void Underling::Update(float dt)
 	if (Utils::OBB(hitbox->GetHitbox(), player->GetHitBoxShape()))
 	{
 		player->OnHitUnderling(this);
+		speed = 0.f;
+	}
+	else
+	{
+		speed = 50.f;
 	}
 }
 

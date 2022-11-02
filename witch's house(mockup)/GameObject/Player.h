@@ -45,6 +45,7 @@ protected:
 	float battom;
 
 	HitBox* hitbox;
+	HitBox* hammerhitbox;
 
 	float speed;
 	float maxHealth;
@@ -52,9 +53,6 @@ protected:
 	float damage;
 
 	bool ishandcollision;
-
-	Projectile* fireBall;
-	
 
 public:
 	Player() :currState(States::None), weaponMode(WeaponModes::Hammer),
@@ -81,15 +79,18 @@ public:
 	void SetDirection(Vector2f direction) { this->direction = direction; }
 	void SetIsHandCollision(bool ishandcollision) {	this->ishandcollision= ishandcollision;}
 	void SetHealth(float delta) { curHealth += delta; }
+	void SetFireBall(Projectile* fireball);
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
-	const RectangleShape& GetFireBallHitBoxShape() { return fireBall->GetHitBoxShape(); }
+	const RectangleShape& GetHammerHitBoxShape() { return hammerhitbox->GetHitbox(); }
 	bool GetIsJump() { return isJump; }
 	float GetDamage() const { return damage; }
 	float GetMaxHealth() { return maxHealth; }
 	float GetCurHealth() { return curHealth; }
 
 	void OnCompleteJump();
+	void OnSlashHammer();
+	void OffSlashHammer();
 
 	void OnHitUnderling(Underling* underling);
 	

@@ -4,10 +4,12 @@
 #include "../Framework/Framework.h"
 #include "../Framework/SoundMgr.h"
 #include "../Scenes/SceneMgr.h"
+#include "../Scenes//SceneGame.h"
 #include "../Ui/UiGameMgr.h"
 #include "HitBox.h"
 #include "Projectile.h"
 #include "Underling.h"
+#include "../Scenes/Scene.h"
 
 Player::~Player()
 {
@@ -34,6 +36,34 @@ void Player::Init()
 
 	{
  		AnimationEvent ev;
+		ev.clipId = "MarioAttackHammerLeft";
+		ev.frame = 5;
+		ev.onEvnet = bind(&Player::OnSlashHammer, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "MarioAttackHammerRight";
+		ev.frame = 5;
+		ev.onEvnet = bind(&Player::OnSlashHammer, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "MarioAttackHammerLeft";
+		ev.frame = 8;
+		ev.onEvnet = bind(&Player::OffSlashHammer, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "MarioAttackHammerRight";
+		ev.frame = 8;
+		ev.onEvnet = bind(&Player::OffSlashHammer, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
 		ev.clipId = "MarioAttackHammerLeft";
 		ev.frame = 11;
 		ev.onEvnet = bind(&Player::OnCompleteJump, this);
@@ -79,9 +109,11 @@ void Player::Init()
 
 	hitbox = new HitBox();
 
-	auto fireball = new Projectile();
-	fireball->Init();
-	fireball->SetActive(false);
+	hammerhitbox = new HitBox();
+	hammerhitbox->SetActive(false);
+
+
+	
 	
 
 	SpriteObj::Init();
@@ -110,19 +142,19 @@ void Player::Update(float dt)
 		damage = 200;
 		cout << "무기종류 :" << (int)weaponMode << endl;
 	}
-	if (!(currState == States::Jump)&&!(currState==States::Attack))
+	if (!(currState == States::Jump) && !(currState == States::Attack))
 	{
 		direction.x = 0.f;
 		Vector2f curpos = GetPos();
 		direction.x += InputMgr::GetAxisRaw(Axis::Horizontal);
-		
+
 		if (InputMgr::GetKeyDown(Keyboard::Key::Space))
 		{
 			SetState(States::Jump);
 		}
 	}
 
-	if (!(currState == States::Jump)&&InputMgr::GetKeyDown(Keyboard::Key::Q))
+	if (!(currState == States::Jump) && InputMgr::GetKeyDown(Keyboard::Key::Q))
 	{
 		SetState(States::Attack);
 	}
@@ -148,23 +180,22 @@ void Player::Update(float dt)
 	{
 		lastDirection = direction;
 	}
-	Translate(direction*speed * dt);
+	Translate(direction * speed * dt);
 
 	if (InputMgr::GetKeyDown(Keyboard::Key::F5))
 		hitbox->SetDevMode(true);
+		hammerhitbox->SetDevMode(true);
+
 	hitbox->SetHitbox({ GetGlobalBounds() });
 	hitbox->SetPos(GetPos());
-
-	fireBall->Update(dt);
-
 
 }
 
 void Player::Draw(RenderWindow& window)
 {
 	hitbox->Draw(window);
+	hammerhitbox->Draw(window);
 	SpriteObj::Draw(window);
-	fireBall->Draw(window);
 	
 }
 
@@ -264,6 +295,10 @@ void Player::SetStatusData(int idx)
 	curHealth = 500;
 }
 
+void Player::SetFireBall(Projectile* fireball)
+{
+}
+
 void Player::OnHitUnderling(Underling* underling)
 {
 	SetHealth(-FRAMEWORK->GetRealDT() * 10.f * underling->GetDamage());
@@ -275,12 +310,29 @@ void Player::OnCompleteJump()
 	SetState(States::Idle);
 }
 
+void Player::OnSlashHammer()
+{
+	hammerhitbox->SetHitbox({ GetGlobalBounds().left,GetGlobalBounds().top,GetGlobalBounds().width * 0.5f,GetGlobalBounds().height });
+	hammerhitbox->SetPos({ GetPos().x * lastDirection.x * 10.f, GetPos().y });
+	hammerhitbox->SetActive(true);
+}
+
+void Player::OffSlashHammer()
+{
+	hammerhitbox->SetActive(false);
+}
+
 void Player::ShowFireBall()
 {
 	Vector2f fireBallPosition;
 	fireBallPosition.x = (lastDirection.x < 0.f) ? GetPos().x - 35.f : GetPos().x + 35.f;
 	fireBallPosition.y = GetPos().y - 27.f;
 
-	fireBall->SetPos(fireBallPosition);
-	fireBall->Fire(lastDirection);
+	
+	auto scene = (SceneGame*)SCENE_MGR->GetScene(Scenes::Game);
+	auto& pool = scene->GetFireBallPool();
+	auto fireball = pool.Get();
+	fireball->SetPos(fireBallPosition);
+	fireball->Fire(lastDirection);
+
 }

@@ -117,6 +117,7 @@ T* ObjectPool<T>::Get()
 	use.push_back(obj);
 
 	obj->Reset();
+	obj->SetActive(true);
 	return obj;
 }
 

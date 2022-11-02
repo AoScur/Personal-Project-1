@@ -48,19 +48,24 @@ void SceneGame::Init()
 	player->SetName("Player");
 	player->Init();
 
+
 	boss = new Boss();
 	boss->SetName("Boss");
 	boss->Init();
-	/*	CreateUnderling(10);*/
 
-	underlings.Init(10);
-	//underling->SetPos({ 100.f,0.f });
-	//underling->Init(player);
-	
+	underlings.Init();
+	for (auto unerling : underlings.GetUnuseList())
+	{
+		unerling->SetPlayer(player);
+	}
+
+	fireBalls.Init();
 }
 
 void SceneGame::Release()
 {
+	fireBalls.Release();
+	underlings.Release();
 	Scene::Release();
 }
 
@@ -68,6 +73,8 @@ void SceneGame::Enter()
 {
 	player->Reset();
 	boss->Reset();
+	fireBalls.Reset();
+	underlings.Reset();
 	/*underling->Reset();*/
 
 
@@ -77,8 +84,6 @@ void SceneGame::Enter()
 	Vector2i size = FRAMEWORK->GetWindowSize();
 	worldView.setSize(size.x, size.y);
 	//worldView.setCenter(0.f, 0.f);
-	
-
 }
 
 void SceneGame::Exit()
@@ -88,6 +93,8 @@ void SceneGame::Exit()
 	//item
 	player->Reset();
 	SOUND_MGR->StopAll();
+	fireBalls.Reset();
+	underlings.Reset();
 	/*underling->Reset();*/
 	/*auto it = underlings.begin();
 	while (it != underlings.end())
@@ -101,17 +108,35 @@ void SceneGame::Exit()
 
 void SceneGame::Update(float dt)
 {
+	if (InputMgr::GetKeyDown(Keyboard::Space))
+	{
+		Vector2f pos;
+		pos.x = Utils::RandomRange(200, 400);
+		pos.y = 0.f;
+
+		auto mob = underlings.Get();
+		mob->SetPos(pos);
+	}
+
+
 	Vector2i size = FRAMEWORK->GetWindowSize();
 	Scene::Update(dt);
 	background->Update(dt);
 	boss->Update(dt);
 	backgroundBattom->Update(dt);
 	player->Update(dt);
-	for (auto it2 = GetUnderlingList().begin();it2 != GetUnderlingList().end();)
+	for (auto& fireball : fireBalls.GetUseList())
 	{
-		(*it2)->SetPlayer(player);
+		fireball->Update(dt);
+	}
+	fireBalls.Update(dt);
+
+	for (auto& underling : underlings.GetUseList())
+	{
+		underling->Update(dt);
 	}
 	underlings.Update(dt);
+
 	//for (auto it = underlings.begin(); it != underlings.end(); it++)
 	//{
 	//	(*it)->Update(dt);
@@ -161,24 +186,34 @@ void SceneGame::Update(float dt)
 			//cout << "collision" << endl;
 		}
 	}
-	//for (auto it = underlings.begin(); it != underlings.end(); )
-	//{
-	//	if (!(*it)->GetActive())
-	//	{
-	//		it = underlings.erase(it);
-	//	}
-	//	else
-	//		it++;
-	//}
-
-	//파이어볼 발사
+	//해머, 쫄몹 충돌처리
+	for (auto it = underlings.GetUseList().begin();it != underlings.GetUseList().end();++it)
+	{
+		if (Utils::OBB(player->GetHammerHitBoxShape(), (*it)->GetHitBoxShape()))
+		{
+			(*it)->SetHealth(-player->GetDamage());
+			cout << (*it)->GetCurHealth() << endl;
+		}
+	}
 
 	//파이어볼, 쫄몹 충돌처리
-	for (auto it2 = GetUnderlingList().begin();it2 != GetUnderlingList().end();)
+	for (auto it = underlings.GetUseList().begin();it != underlings.GetUseList().end();++it)
 	{
-		if (Utils::OBB(player->GetFireBallHitBoxShape(), (*it2)->GetHitBoxShape()))
+		for (auto it2 = fireBalls.GetUseList().begin();it2 != fireBalls.GetUseList().end();++it2)
 		{
-			cout << "맞았다" << endl;
+			if (Utils::OBB((*it2)->GetHitBoxShape(), (*it)->GetHitBoxShape()))
+			{
+				(*it2)->SetActive(false);
+				(*it)->SetHealth(-player->GetDamage());
+				cout << (*it)->GetCurHealth() << endl;
+			}
+		}
+	}
+	for (auto it = underlings.GetUseList().begin();it != underlings.GetUseList().end();++it)
+	{
+		if ((*it)->GetCurHealth() <= 0)
+		{
+			(*it)->SetActive(false);
 		}
 	}
 
@@ -206,18 +241,14 @@ void SceneGame::Draw(RenderWindow& window)
 	{
 		(*it)->Draw(window);
 	}
+
+	for (auto& underling : underlings.GetUseList())
+	{
+		underling->Draw(window);
+	}
+	for (auto& fireball : fireBalls.GetUseList())
+	{
+		fireball->Draw(window);
+	}
 	
 }
-//
-//void SceneGame::CreateUnderling(Underling* undering)
-//{
-//	for (int i = 0; i < 10; i++)
-//	{
-//		Underling* underling = new Underling();
-//		Vector2f genPos = {Utils::RandomRange(400.f, 600.f), 0.f};
-//		underling->SetPos(genPos);
-//		underling->Init(player);
-//		objList.push_back(underling);
-//		underlings.push_back(underling);
-//	}
-//}

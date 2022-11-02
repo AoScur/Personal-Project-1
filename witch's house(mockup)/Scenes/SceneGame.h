@@ -17,6 +17,7 @@ protected:
 	SpriteObj* backgroundBattom;
 
 	//Underling* underling;
+	ObjectPool<Projectile> fireBalls;
 	ObjectPool<Underling> underlings;
 
 	Player* player;
@@ -36,6 +37,7 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	void CreateUnderling(int count);
-	const list<Underling*>& GetUnderlingList() { return underlings.GetUseList(); }
+	ObjectPool<Underling>& GetUnderlingPool() { return underlings; }
+	ObjectPool<Projectile>& GetFireBallPool() { return fireBalls; }
+
 };

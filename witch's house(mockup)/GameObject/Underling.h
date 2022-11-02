@@ -16,8 +16,8 @@ protected:
 	Vector2f lastDirection;
 	float speed;
 
-	float maxHp;
-	float health;
+	float maxHealth;
+	float curHealth;
 	float damage;
 
 	Player* player;
@@ -34,8 +34,9 @@ public:
 
 	const RectangleShape& GetHitBoxShape() { return hitbox->GetHitbox(); }
 	float GetDamage() { return damage; }
+	float GetCurHealth() { return curHealth; }
 
-	void SetHealth(float delta) { health = health + delta; }
+	void SetHealth(float delta) { curHealth = curHealth + delta; }
 	void SetPlayer(Player* player) { this->player = player; }
 	void OnHitFireBall(Projectile* fireball);
 

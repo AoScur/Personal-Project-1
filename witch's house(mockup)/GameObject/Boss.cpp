@@ -5,7 +5,7 @@
 #include "HitBox.h"
 
 Boss::Boss()
-	:currState(States::None)
+	:currState(States::Appear)
 {
 }
 
@@ -18,6 +18,7 @@ void Boss::Init()
 	animator.SetTarget(&sprite);
 	Utils::SetOrigin(sprite, Origins::BC);
 	sprite.setScale(6, 4);
+	sprite.setPosition({ 0.f, 1000.f });
 
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaAppear"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaFrontIdle"));
@@ -26,10 +27,51 @@ void Boss::Init()
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaLeftFascination"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaLeftFascinationSuccess"));
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("KoopaStrikeDown"));
-
-
+	
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaAppear";
+		ev.frame = 7;
+		ev.onEvnet = bind(&Boss::OnComplete, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaFrontAttackLeft";
+		ev.frame = 12;
+		ev.onEvnet = bind(&Boss::OnComplete, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaFrontAttackRight";
+		ev.frame = 12;
+		ev.onEvnet = bind(&Boss::OnComplete, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaStrikeDown";
+		ev.frame = 8;
+		ev.onEvnet = bind(&Boss::OnComplete, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaLeftFascination";
+		ev.frame = 48;
+		ev.onEvnet = bind(&Boss::OnCompleteFascination, this);
+		animator.AddEnvet(ev);
+	}
+	{
+		AnimationEvent ev;
+		ev.clipId = "KoopaLeftFascinationSuccess";
+		ev.frame = 70;
+		ev.onEvnet = bind(&Boss::OnComplete, this);
+		animator.AddEnvet(ev);
+	}
 	SetState(States::Appear);
-	animator.Play("KoopaFrontIdle");
+	//animator.Play("KoopaFrontIdle");
 
 	bodyHitBox = new HitBox();
 	leftArmHitBox = new HitBox();
@@ -42,12 +84,14 @@ void Boss::Init()
 
 void Boss::Reset()
 {
+	SetPos({ 0.f, 300.f });
 }
 
 void Boss::Update(float dt)
 {
 	SpriteObj::Update(dt);
 	
+
 	switch (currState)
 	{
 	case Boss::States::Appear:
@@ -102,8 +146,9 @@ void Boss::Draw(RenderWindow& window)
 
 void Boss::SetState(States newState)
 {
-	//if (currState == newState)
-	//	return;	
+	if (currState == newState)
+		return;
+	currState = newState;
 	switch (currState)
 	{
 	case Boss::States::Appear:
@@ -119,59 +164,76 @@ void Boss::SetState(States newState)
 		animator.Play("KoopaFrontAttackRight");
 		break;
 	case Boss::States::StrikeDown:
-		animator.Play("KoopaLeftFascination");
+		animator.Play("KoopaStrikeDown");
 		break;
 	case Boss::States::Fascination:
-		animator.Play("KoopaLeftFascinationSuccess");
+		animator.Play("KoopaLeftFascination");
 		break;
 	case Boss::States::FascinationSuccess:
-		animator.Play("KoopaStrikeDown");
+		animator.Play("KoopaLeftFascinationSuccess");
 		break;
 	}
 }
 
 void Boss::UpdateAppear(float dt)
 {
-	SetPos({ 0.f, -400.f });
-	SetState(States::Appear);
-	Vector2f velocity(0.f, -700.f);
-	Vector2f gravity(0.f, 2000.f);
-	velocity += gravity * dt;
-	Vector2f delta = velocity * dt;
-	Translate(delta);
-	if (velocity.y>0.f&&GetPos().y<100.f)
+ 	Vector2f dir = { 0,-1 };
+	Translate(dir *speed * dt);
+	if (GetPos().y<110.f)
 	{
 		SetPos({ 0.f, 100.f });
+		SetState(States::Idle);
+		return;
 	}
 }
 
 void Boss::UpdateIdle(float dt)
 {
 	SetPos({ 0.f, 100.f });
-	SetState(States::Idle);
+	curDelay += dt;
+	if (curDelay > maxDelay)
+	{
+		curDelay = 0.f;
+		RandomPattern();
+	}
 }
 
 void Boss::UpdateAttackLeft(float dt)
 {
-	SetState(States::AttackLeft);
+	SetPos({ 0.f, 100.f });
 }
 
 void Boss::UpdateAttackRight(float dt)
 {
-	SetState(States::AttackRight);
+	SetPos({ 0.f, 100.f });
 }
 
 void Boss::UpdateStrikeDown(float dt)
 {
-	SetState(States::StrikeDown);
+	SetPos({ 0.f, 100.f });
 }
 
 void Boss::UpdateFascination(float dt)
 {
-	SetState(States::Fascination);
+	SetPos({ -860.f, 100.f });
 }
 
 void Boss::UpdateFascinationSuccess(float dt)
 {
-	SetState(States::FascinationSuccess);
+	SetPos({ -860.f, 100.f });
+}
+
+void Boss::RandomPattern()
+{
+	SetState((States)Utils::RandomRange(2, 6));
+}
+
+void Boss::OnComplete()
+{
+	SetState(States::Idle);
+}
+
+void Boss::OnCompleteFascination()
+{
+	
 }

@@ -26,6 +26,11 @@ protected:
 	HitBox* leftArmHitBox;
 	HitBox* rightArmHitBox;
 
+	float speed = 100.f;
+
+	bool isBehavior = false;
+	float maxDelay = 5.f;
+	float curDelay = 0.f;
 
 public:
 	Boss();
@@ -54,5 +59,10 @@ public:
 
 
 	Vector2f GetPosition() { return position; }
+
+	void RandomPattern();
+
+	void OnComplete();
+	void OnCompleteFascination();
 };
 

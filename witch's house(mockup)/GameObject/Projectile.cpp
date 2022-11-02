@@ -4,7 +4,7 @@
 #include "Underling.h"
 
 Projectile::Projectile()
-	:duration(0.7f)
+	:duration(10.f)
 {
 }
 
@@ -16,7 +16,7 @@ void Projectile::Fire(Vector2f direction)
 {
 	enabled = true;
 	timer = 0.f;
-	speed = 500.f;
+	speed = 100.f;
 	this->direction = direction;
 	animator.Play("MarioFireBall");
 }
@@ -27,6 +27,7 @@ void Projectile::Init()
 	animator.AddClip(*ResourceMgr::GetInstance()->GetAnimationClip("MarioFireBall"));
 	animator.Play("MarioFireBall");
 	hitbox = new HitBox();
+	SetActive(false);
 	SpriteObj::Init();
 }
 
